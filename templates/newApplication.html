@@ -66,6 +66,7 @@
         </div>
     </div>
     <ul id="sidebar_menu">
+        
         <li class="">
             <a href="home" aria-expanded="false">
                 <div class="nav_icon_small">
@@ -129,16 +130,16 @@
                                 <img src="/static/img/user.png" alt="#">
                             </div>
                             <div class="author_name">
-                                <h4 class="f_s_15 f_w_500 mb-0">Username</h4>
+                                <h4 class="f_s_15 f_w_500 mb-0">Admin</h4>
                             
                             </div>
                             <div class="profile_info_iner">
                                 <div class="profile_author_name">
                                   
-                                    <h5>Username</h5>
+                                    <h5>Admin</h5>
                                 </div>
                                 <div class="profile_info_details">
-                                    <a href="#">My Applications </a>
+                                    <a href="viewapplication">My Applications </a>
                                     <a href="#">Log Out </a>
                                 </div>
                             </div>
@@ -161,31 +162,40 @@
                                 <h4>Create an Application</h4>
                             </div>
                         </div>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ url_for('newapplication')}}" enctype = "multipart/form-data">
                         <div class="white_card_body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label >Project Name</label>
                                     <div class="common_input mb_20">
-                                        <input type="text" placeholder="Project Name" name = "projectName">
+                                        <input type="text" placeholder="Project Name" name = "project_name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="common_input mb_20">
                                         <label >Database Dialect</label>
-                                        <input type="text" placeholder="Database Dialect" name = "databaseDialect">
+                                        <input type="text" placeholder="Database Dialect" name = "database_dialect">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label> Upload Project</label>
+                                    <div class = "custom-file">
+                                        <input type="file" class = "custom-file-input" name = "file" id = "file">
+                                        <label class = "custom-file-label" for = "file">Select File...</label>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="col-lg-6">
                                     <label >Upload Project</label>
                                     <div class="create_report_btn mt_30">
                                         <a href="#" class="btn_1 w-100">Choose File</a>
                                     </div>
-                                </div>
+                                </div> -->
                                                                
                                 <div class="col-12">
                                     <div class="create_report_btn mt_30">
-                                        <a href="#" class="btn_1 w-100">CREATE PROJECT</a>
+                                        <button type="submit" class="btn_1 w-100">CREATE PROJECT</button>
                                     </div>
                                 </div>
                             </div>
