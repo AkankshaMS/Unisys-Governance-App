@@ -16,73 +16,127 @@
                 </div>
             </div>
         </div>
-        <div class="row ">
-            <div class="col-12">
-                <div class="white_card">
-                    <div class="card-body">
-                        <div class="board_wrapper">
-                            <!-- single_board  -->
-                            <div class="single_board">
-                                <div class=" main_board_card">
-
-                                    <div class="row board_card_list">
-                                        {% for project in project_list %}
-                                        <div class="col card border-0">
-                                            <div class="card-body">
-
-                                                <h5 class="f_s_16 f_w_500 mb-0">{{project.project_name}}</h5>
-                                                <div class="row justify-content-center align-items-center">
-                                                    <!--end col-->
-
-                                                    <div>
-                                                        <input type="checkbox" checked data-toggle="toggle"
-                                                            data-on="&nbsp;On &nbsp;" data-off=" Off "
-                                                            data-onstyle="success" data-offstyle="danger"
-                                                            data-style="ios">
-                                                        <div class="col-6 align-self-center">
-
-                                                            <a class=" btn btn-primary"
-                                                                href="/applicationinfo/{{project.project_name}}">View
-                                                                Application
-                                                            </a>
+        <div class="container">
+            <div class="row ">
+                <div class="col">
+                    <div class="white_card">
+                        <div class="card-body">
+                            <div class="board_wrapper">
+                                <!-- single_board  -->
+                                <div class="single_board">
+                                    <div class="main_board_card">
+                                        <div class="board_card_list">
+                                        <div class="ui link cards" style="margin-left: 10%;">
+    
+                                            {% for project in project_list %}
+                                  
+                                            <div class="card" style="margin-bottom:20px;margin-left: 15px;margin-right:15px;">
+                                              <div class="image" style="padding: 5px 5px;">
+                                                <img src="static/img/agreement-terms.svg" style="width: 60%;height: 50%;margin-left: 20%;">
+                                              </div>
+                                              <div class="content">
+                                                <div class="header" style="text-align: center;">{{project.project_name |title}}</div>
+                                                <div class="meta">
+                                                  <p>&nbsp;</p>
+                                                </div>
+                                                <div class="description">
+                                                    <a class=" btn btn-primary btn-block"
+                                                    href="/applicationinfo/{{project.project_name}}">View
+                                                    Application
+                                                </a>                                                </div>
+                                              </div>
+                                              <div class="extra content">
+                                                <span class="right floated" style="line-height: 30px;">
+                                                  Created in 2021-05-22
+                                                </span>
+                                                <input type="checkbox" checked data-toggle="toggle"
+                                                                data-on="&nbsp;On &nbsp;" data-off=" Off "
+                                                                data-onstyle="success" data-offstyle="danger"
+                                                                data-style="ios">
+                                              </div>
+                                            </div>
+                                
+                                            {%endfor%}
+                                
+                                          
+                                          </div>
+                                
+                                          </div>
+        
+    
+    
+    
+    
+    
+    
+    
+                                        <!-- <div class="row board_card_list">
+                                            {% for project in project_list %}
+                                            <div class="col card border-0">
+                                                <div class="card-body">
+    
+                                                    <h5 class="f_s_16 f_w_500 mb-0">{{project.project_name}}</h5>
+                                                    <div class="row justify-content-center align-items-center">
+    
+                                                        <div>
+                                                            <input type="checkbox" checked data-toggle="toggle"
+                                                                data-on="&nbsp;On &nbsp;" data-off=" Off "
+                                                                data-onstyle="success" data-offstyle="danger"
+                                                                data-style="ios">
+                                                            <div class="col-6 align-self-center">
+    
+                                                                <a class=" btn btn-primary"
+                                                                    href="/applicationinfo/{{project.project_name}}">View
+                                                                    Application
+                                                                </a>
+                                                            </div>
                                                         </div>
+    
                                                     </div>
-
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <!-- {{project.curr_date}} -->
-                                        {% endfor %}
-
-
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <div class="col-6 align-self-center">
-
-
+    
+                                            {% endfor %}
+    
+    
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <div class="col-6 align-self-center">
+    
+    
+                                                </div>
+                                                <div class="col-6 align-self-center">
+    
+                                                </div>
                                             </div>
-                                            <!--end col-->
-                                            <div class="col-6 align-self-center">
-
-                                            </div>
-                                            <!--end col-->
-                                        </div>
+                                        </div> -->
                                     </div>
+    
+    
+    
+    
+    
+                                        
+                                    
+    
                                 </div>
-
                             </div>
                         </div>
+    
+                        <!-- <div class="col-6 align-self-center">
+                            <a class="float-right" href="#">assa
+                                <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
+                            </a>
+                        </div> -->
+                        <!--end col-->
                     </div>
-
-                    <!-- <div class="col-6 align-self-center">
-                        <a class="float-right" href="#">assa
-                            <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
-                        </a>
-                    </div> -->
-                    <!--end col-->
                 </div>
             </div>
+    
+    
+            
         </div>
+        
+
     </div>
 </div>
 </div>
