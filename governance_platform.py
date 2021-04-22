@@ -8,44 +8,20 @@ from datetime import datetime, date
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, send, emit
 from flask_restful import Resource, Api
-
-
 import random
+
+from flask_cors import CORS
+
+#App initialization
 app = Flask(__name__)
 app.secret_key = "hello"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['DEBUG'] = True
-
 socketio = SocketIO(app)
 api = Api(app)
 db = SQLAlchemy(app)
-
-
-class User(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True)
-    username = db.Column("username", db.String(100))
-    password = db.Column("password", db.String(100))
-
-    #curr_time = db.Column("time", db.DateTime, default = today.strftime("%H:%M:%S"))
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-
-class Project(db.Model):
-    project_id = db.Column("project_id", db.Integer,
-                           primary_key=True, autoincrement=True)
-    project_name = db.Column("project_name", db.String(100))
-    database_dialect = db.Column("database_dialect", db.String(100))
-    base_dir = db.Column("base_directory", db.String(100))
-    curr_date = db.Column("date", db.DateTime, default=datetime.utcnow)
-
-    def __init__(self, pname, database_dialect, base_dir):
-        #self.project_id = random.randint(0,1000)
-        self.project_name = pname
-        self.database_dialect = database_dialect
-        self.base_dir = base_dir
+CORS(app)
+from DataBase import *
 
 
 class AuditApi(Resource):
@@ -53,12 +29,12 @@ class AuditApi(Resource):
     def get(self):
         return {'message': 'hello world'}
 
-        def post(self):
-            print("Post came")
-            data = request.get_json()     # status code
-            print(data)
-            socketio.emit("audit", data, broadcast=True)
-            return data
+    def post(self):
+        print("Post came")
+        data = request.get_json()     # status code
+        print(data)
+        socketio.emit("audit", data, broadcast=True)
+        return data
 
 
 api.add_resource(AuditApi, '/newaudit')
@@ -95,45 +71,54 @@ def login():
 def home():
     return render_template("home.html")
 
-#app.config["FILE_UPLOADS"] = "/G_Platform/static/img/uploads"
 
 
 @app.route("/newapplication", methods=["GET", "POST"])
 def newapplication():
-    print(request.method)
+    print(request.form)
     print("Hello")
     if request.method == 'POST':
         project_name = request.form['project_name']
         print(project_name)
         database_dialect = request.form['database_dialect']
         print(database_dialect)
-        print(request.files['file'])
 
-    # check if the post request has the file part
-        if 'file' not in request.files:
-            print('HI')
-            flash('No file part')
-            return redirect(request.url)
-        project_file = request.files['file']
-        # if user does not select file
-        if project_file.filename == '':
-            flash('No selected file')
-            # return redirect(request.url)
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        project_file.save(os.path.join(
-            basedir, "./newapplication", project_file.filename))
-        print('File uploaded successfully!')
+
+
+
+        # print("File is",request.files['file'])
+        # # check if the post request has the file part
+        # if 'file' not in request.files:
+        #     print('HI')
+        #     flash('No file part')
+        #     return redirect(request.url)
+        # project_file = request.files['file']
+        # # if user does not select file
+        # if project_file.filename == '':
+        #     flash('No selected file')
+        #     # return redirect(request.url)
+        # basedir = os.path.abspath(os.path.dirname(__file__))
+        # project_file.save(os.path.join(
+        #     basedir, "./newapplication", project_file.filename))
+        # print('File uploaded successfully!')
+        
+        
+        
+        
+        
+        
         project = Project(project_name, database_dialect,
-                          project_file.filename)
+                          os.environ["HOME"]+project_name)
         db.session.add(project)
         db.session.commit()
         # return basedir
         # return jsonify({"success": True}), 200
-
+        flash("Project created succesfully")
+        return redirect(request.url)
     return render_template("newApplication.html")
 
 
-@app.route("/viewapplications")
+@app.route("/viewapplications", methods=["GET", "POST"])
 def viewapplications():
     project_list = Project.query.all()
     print(project_list)

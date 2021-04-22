@@ -1,49 +1,60 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    .toggle.ios,
+    .toggle-on.ios,
+    .toggle-off.ios {
+        border-radius: 20rem;
+    }
+
+    .toggle.ios .toggle-handle {
+        border-radius: 20rem;
+    }
+</style>
 
 
-    
-    <!--/ menu  -->
-        <div class="main_content_iner overly_inner ">
-            <div class="container-fluid p-0 ">
-                <!-- page title  -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page_title_box d-flex align-items-center justify-content-between">
-                            <div class="page_title_left">
-                                <h3 class="f_s_30 f_w_700 dark_text">All Applications</h3>
-                            </div>
-                        </div>
+<!--/ menu  -->
+<div class="main_content_iner overly_inner ">
+    <div class="container-fluid p-0 ">
+        <!-- page title  -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page_title_box d-flex align-items-center justify-content-between">
+                    <div class="page_title_left">
+                        <h3 class="f_s_30 f_w_700 dark_text">All Applications</h3>
                     </div>
                 </div>
-                <div class="row ">
-                    <div class="col-12">
-                        <div class="white_card">
-                            <div class="card-body">
-                                <div class="board_wrapper">
-                                    <!-- single_board  -->
-                                    <div class="single_board">
-                                        <div class="main_board_card">
-                                            <div class="white_card_header pl-0 pr-0 pt-0">
-                                                <div class="box_header m-0">
-                                                    <!-- <div class="main-title">
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-12">
+                <div class="white_card">
+                    <div class="card-body">
+                        <div class="board_wrapper">
+                            <!-- single_board  -->
+                            <div class="single_board">
+                                <div class="main_board_card">
+                                    <div class="white_card_header pl-0 pr-0 pt-0">
+                                        <div class="box_header m-0">
+                                            <!-- <div class="main-title">
                                                         <h3 class="m-0">Ongoing</h3>
                                                     </div> -->
-                                                    <div class="header_more_tool">
-                                                        <div class="dropdown">
-                                                            <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                                                              <i class="ti-more-alt"></i>
-                                                            </span>
-                                                            
-                                                          </div>
-                                                    </div>
+                                            <!-- <div class="header_more_tool">
+                                                <div class="dropdown">
+                                                    <span class="dropdown-toggle" id="dropdownMenuButton"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ti-more-alt"></i>
+                                                    </span>
+
                                                 </div>
-                                            </div>
-                                            <div class="board_card_list">
-                                                {% for project in project_list %}
-                                                <div class="card border-0">
-                                                    <div class="card-body">
-                                                        <div class="card_head d-flex justify-content-between align-items-center ">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="board_card_list">
+                                        {% for project in project_list %}
+                                        <div class="card border-0">
+                                            <div class="card-body">
+                                                <!-- <div class="card_head d-flex justify-content-between align-items-center ">
                                                             <i class="far fa-circle f_s_14 text_color_4"></i>
                                                             <div class="header_more_tool">
                                                                 <div class="dropdown">
@@ -59,25 +70,32 @@
                                                                     </div>
                                                                   </div>
                                                             </div>
-                                                        </div>
-                                                        <h5 class="f_s_16 f_w_500 mb-0" >{{project.project_name}}</h5>
-                                                        <div class="row justify-content-center align-items-center">
-                                                            <!--end col-->
-                                                            <div class="col-6 align-self-center">
-                                                                <i class="fas fa-play"></i>
-                                                                <i class="fas fa-pause"></i>
-                                                                <a class="float-right" href="/applicationinfo/{{project.project_name}}">View Application
-                                                                </a> 
-                                                            </div>
-                                                            <!--end col-->
-                                                        </div>
+                                                        </div> -->
+                                                <h5 class="f_s_16 f_w_500 mb-0">{{project.project_name}}</h5>
+                                                <div class="row justify-content-center align-items-center">
+                                                    <!--end col-->
+
+                                                    <!-- iOS Style: Rounded -->
+                                                    <input type="checkbox" checked data-toggle="toggle" data-style="ios">
+                                                    <input type="checkbox" checked data-toggle="toggle" data-on="&nbsp;On &nbsp;" data-off=" Off " data-onstyle="success" data-offstyle="danger">
+
+                                                    <div class="col-6 align-self-center">
+                                                        <!-- <i class="fas fa-play"></i>
+                                                        <i class="fas fa-pause"></i> -->
+                                                        <a class="float-right btn btn-primary"
+                                                            href="/applicationinfo/{{project.project_name}}">View
+                                                            Application
+                                                        </a>
                                                     </div>
+                                                    <!--end col-->
                                                 </div>
-                                               
-                                                <!-- {{project.curr_date}} -->
-                                               {% endfor %}
-                                               
-                                                <!-- <div class="card border-0">
+                                            </div>
+                                        </div>
+
+                                        <!-- {{project.curr_date}} -->
+                                        {% endfor %}
+
+                                        <!-- <div class="card border-0">
                                                     <div class="card-body">
                                                         <div class="card_head d-flex justify-content-between align-items-center ">
                                                             <i class="far fa-circle f_s_14 text_color_4"></i>
@@ -99,28 +117,28 @@
                                                         <h5 class="f_s_16 f_w_500 mb-0" >Project 2</h5>
                                                         <p class="text-muted mb-2">Mobile App</p>
                                                         <!-- <div class="row justify-content-center align-items-center"> -->
-                                                        <div class="d-flex align-items-center justify-content-center">
-                                                            <div class="col-6 align-self-center">
-                            
-                                                                
-                                                            </div>
-                                                            <!--end col-->
-                                                            <div class="col-6 align-self-center">
-                                                                <!-- <a class="float-right" href="#">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="col-6 align-self-center">
+
+
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-6 align-self-center">
+                                                <!-- <a class="float-right" href="#">
                                                                     <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
                                                                 </a> -->
-                                                            </div>
-                                                            <!--end col-->
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                                
                                             </div>
+                                            <!--end col-->
                                         </div>
                                     </div>
-                                    
-                                    <!-- single_board  -->
-                                    <!-- <div class="single_board">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- single_board  -->
+                    <!-- <div class="single_board">
                                         <div class="main_board_card">
                                             <div class="white_card_header pl-0 pr-0 pt-0">
                                                 <div class="box_header m-0">
@@ -183,16 +201,16 @@
                                                                 </ul>
                                                             </div>
                                                             <!--end col-->
-                                                            <div class="col-6 align-self-center">
-                                                                <a class="float-right" href="#">
-                                                                    <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
-                                                                </a>
-                                                            </div> 
-                                                            <!--end col-->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="card border-0">
+                    <div class="col-6 align-self-center">
+                        <a class="float-right" href="#">
+                            <div class="thumb_34 ml-1 mt-0"><img class="img-fluid radius_50" alt=""></div>
+                        </a>
+                    </div>
+                    <!--end col-->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card border-0">
                                                     <div class="card-body">
                                                         <div class="card_head d-flex justify-content-between align-items-center ">
                                                             <i class="far fa-circle f_s_14 text_color_4"></i>
@@ -211,12 +229,12 @@
                                                                   </div>
                                                             </div>
                                                         </div> -->
-                                                        
-                                                            <!--end col-->
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
+
+        <!--end col-->
+
+    </div>
+</div>
+</div>
 
 
-                                            {% endblock %}
+{% endblock %}

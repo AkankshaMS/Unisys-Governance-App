@@ -2,6 +2,8 @@
 {% block content %}
 <!-- All Applications -->
 <div class="main_content_iner ">
+
+    <!-- Title -->
     <div class="container-fluid p-0">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -9,7 +11,7 @@
                     <div class="white_card_header">
                         <div class="box_header m-0">
                             <div class="main-title">
-                                <h3 class="m-0">Application info</h3>
+                                <h3 class="m-0">{{project.project_name}}</h3>
                             </div>
                         </div>
                     </div>
@@ -19,6 +21,36 @@
             </div>
         </div>
     </div>
+
+
+    <div class="container-fluid p-0">
+          <h4 class="ui horizontal divider header">
+            <i class="bar chart icon"></i>
+            Application info
+          </h4>
+          <table class="ui definition table">
+            <tbody>
+              <tr>
+                <td class="two wide column">Name</td>
+                <td>{{project.project_name}}</td>
+              </tr>
+              <tr>
+                <td>Database</td>
+                <td>{{project.database_dialect}}</td>
+              </tr>
+
+              <tr>
+                <td>Created Date</td>
+                <td>{{project.curr_date}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+    </div>
+
+    <h4 class="ui horizontal divider header">
+      </h4>
+
 </div>
 
 <!-- All Audits of Projects -->
