@@ -5,14 +5,17 @@ $(document).ready(function() {
     var sock = io()
 
     sock.on('audit', function(data) {
+        
         console.log(data)
-        $("#audit_body").append(`
-        <tr><td>`+data['userName']+`</td>
-        <td>`+data['auditDocumentName']+`</td>
-        <td>`+data['auditModuleName']+`</td>
-        <td>`+data['operation']+`</td>
-        <td>`+data['timestamp']+`</td>
-    </tr> `);
+        var row =`\
+        <tr><td>`+data['userName']+`</td>\
+        <td>`+data['auditDocumentName']+`</td>\
+        <td>`+data['auditModuleName']+`</td>\
+        <td>`+data['operation']+`</td>\
+        <td>`+data['timestamp']+`</td>\
+    </tr>`;
+        $("#audit_body").prepend(row)
+
 
     });
 

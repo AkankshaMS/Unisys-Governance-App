@@ -39,12 +39,12 @@ class ProjectAudit(db.Model):
     timestamp = db.Column("timestamp", db.String(40))
 
 
-    def __init__(self, project_id, auditModuleName, auditDocumentName,operation,userName,timestamp):
-        #self.project_id = random.randint(0,1000)
-        self.project_id = project_id    
-        self.auditModuleName =auditModuleName
-        self.auditDocumentName = auditDocumentName
-        self.operation = operation
-        self.userName = userName
-        self.timestamp = timestamp
+    # def __init__(self, project_id, auditModuleName, auditDocumentName,operation,userName,timestamp):
+    #     #self.project_id = random.randint(0,1000)
+    #     self.projid = project_id    
+    #     self.auditModuleName =auditModuleName
+    #     self.auditDocumentName = auditDocumentName
+    #     self.operation = operation
+    #     self.userName = userName
+    #     self.timestamp = timestamp
 

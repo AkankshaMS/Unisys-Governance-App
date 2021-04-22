@@ -100,16 +100,20 @@
                                             </tr>
                                         </thead>
                                         <tbody id="audit_body">
+                                            {% for audit in project_audits %}
+
                                             <tr>
                                                 <td>
-                                                    Bhavika
+                                                    {{audit.userName}}
                                                 </td>
-                                                <td>Class</td>
-                                                <td>Class</td>
-                                                <td>Class</td>
-                                                <td>Class</td>
+                                                <td>{{audit.auditDocumentName}}</td>
+                                                <td>{{audit.auditModuleName}}</td>
+                                                <td>{{audit.operation}}</td>
+                                                <td>{{audit.timestamp}}</td>
 
-                                            </tr>                                           
+                                            </tr> 
+                                            {% endfor %}
+
                                         </tbody>
 
 

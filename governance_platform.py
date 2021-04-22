@@ -12,6 +12,8 @@ import random
 
 from flask_cors import CORS
 
+
+
 #App initialization
 app = Flask(__name__)
 app.secret_key = "hello"
@@ -24,16 +26,40 @@ CORS(app)
 from DataBase import *
 
 
+current_app_name = None
+
 class AuditApi(Resource):
 
     def get(self):
         return {'message': 'hello world'}
 
     def post(self):
+        global current_app_name
         print("Post came")
-        data = request.get_json()     # status code
+        print()
+        data = request.get_json()
         print(data)
-        socketio.emit("audit", data, broadcast=True)
+        print("BYE")
+
+        project_name = data['bizDataGroupId']
+        print(project_name)
+        project = Project.query.filter_by(project_name=project_name).first()
+        print(project)
+        
+        audit = ProjectAudit(auditModuleName=data['auditModuleName'],
+            auditDocumentName=data['auditDocumentName'],
+            operation=data['operation'],
+            userName = data['userName'],
+            timestamp = data['timestamp'],proj=project)
+
+        db.session.add(audit)
+        db.session.commit()
+        if(current_app_name==project_name):
+            socketio.emit("audit",data,broadcast=True)
+        else:
+            print("Not sending")
+        #Save the data in database
+        #data = {'message': 'hello world'}
         return data
 
 
@@ -111,6 +137,12 @@ def newapplication():
                           os.environ["HOME"]+project_name)
         db.session.add(project)
         db.session.commit()
+
+
+
+
+        
+        #Aka
         # return basedir
         # return jsonify({"success": True}), 200
         flash("Project created succesfully")
@@ -128,9 +160,13 @@ def viewapplications():
 
 @app.route("/applicationinfo/<pname>")
 def applicationinfo(pname):
+    global current_app_name
     print(pname)
+    current_app_name = pname
+
     project = Project.query.filter_by(project_name=pname).first()
-    return render_template("applicationinfo.html", project=project)
+    project_audits = reversed(project.audits) 
+    return render_template("applicationinfo.html", project=project,project_audits=project_audits)
     #values = userDetails.query.all()
 
 
