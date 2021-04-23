@@ -120,6 +120,8 @@ def newapplication():
         print(project_name)
         database_dialect = request.form['database_dialect']
         print(database_dialect)
+        file = os.path.abspath(project_name)
+        print(file)
 
 
 
@@ -146,7 +148,7 @@ def newapplication():
         
         
         project = Project(project_name, database_dialect,
-                          os.environ["HOME"]+project_name)
+                          file)
         db.session.add(project)
         db.session.commit()
 
