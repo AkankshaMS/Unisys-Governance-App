@@ -49,10 +49,15 @@
                                                 <span class="right floated" style="line-height: 30px;">
                                                   Created in 2021-05-22
                                                 </span>
-                                                <input type="checkbox" checked data-toggle="toggle"
+                                                
+                                                
+
+                                                <form onclick="updatePowerStatus(this[0],'{{project.project_name}}')">
+                                                <input type="checkbox" data-toggle="toggle" name="check" value="1"
                                                                 data-on="&nbsp;On &nbsp;" data-off=" Off "
                                                                 data-onstyle="success" data-offstyle="danger"
                                                                 data-style="ios">
+                                                </form>
                                               </div>
                                             </div>
                                 

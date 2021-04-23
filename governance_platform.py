@@ -9,10 +9,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, send, emit
 from flask_restful import Resource, Api
 import random
-
+import json
 from flask_cors import CORS
 
-
+def isOn(project_name):
+    pass
 
 #App initialization
 app = Flask(__name__)
@@ -64,6 +65,17 @@ class AuditApi(Resource):
 
 
 api.add_resource(AuditApi, '/newaudit')
+
+@app.route("/updatepowerstatus",methods=['POST', 'GET'])
+def updatepowerstatus():
+    print("Came hjer")
+    #print(json.dumps(request.get_data()))
+    print(request.get_json())
+    print(str(request.get_data()))
+
+    return json.dumps({'msg':'ok'})
+
+
 
 
 @socketio.on('connect')

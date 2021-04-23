@@ -21,6 +21,7 @@ class Project(db.Model):
     base_dir = db.Column("base_directory", db.String(100))
     curr_date = db.Column("date", db.DateTime, default=datetime.utcnow)
     audits = db.relationship('ProjectAudit', backref='proj', lazy=True)
+    
     def __init__(self, pname, database_dialect, base_dir):
         #self.project_id = random.randint(0,1000)
         self.project_name = pname
