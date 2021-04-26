@@ -18,7 +18,7 @@ class Project(db.Model):
                            primary_key=True, autoincrement=True)
     project_name = db.Column("project_name", db.String(100))
     database_dialect = db.Column("database_dialect", db.String(100))
-    base_dir = db.Column("base_directory", db.String(100))
+    file = db.Column("base_directory", db.String(100))
     curr_date = db.Column("date", db.DateTime, default=datetime.utcnow)
     audits = db.relationship('ProjectAudit', backref='proj', lazy=True)
     
