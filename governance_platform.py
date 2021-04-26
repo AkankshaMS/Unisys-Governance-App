@@ -72,7 +72,9 @@ def updatepowerstatus():
     #print(json.dumps(request.get_data()))
     print(request.get_json())
     print(str(request.get_data()))
-
+    status = request.form['switch_status']
+    project = request.form['project']
+    print(project,status)
     return json.dumps({'msg':'ok'})
 
 
