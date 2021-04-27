@@ -20,16 +20,19 @@ import webbrowser
 import patoolib
 from pyunpack import Archive
 from flask_cors import CORS
+from utils import *
 #to be added as environment variables
-os.environ["JAVA_HOME"] = 'C:\Program Files\Java\jdk1.8.0_201'
-os.environ["JBOSS_HOME"] = 'C:/Users/Dell/wildfly-20.0.0.Final'
-os.environ["WILDFLY_BIN"]='C:/Users/Dell/wildfly-20.0.0.Final/bin/'
-os.environ["UPLOADS_FOLDER"]='D:/Unisys-Governance-App/uploads'
-os.environ["WILDFLY_DEPLOYMENTS"]='C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/'
+# os.environ["JAVA_HOME"] = 'C:\Program Files\Java\jdk1.8.0_201'
+# os.environ["JBOSS_HOME"] = 'C:/Users/Dell/wildfly-20.0.0.Final'
+# os.environ["WILDFLY_BIN"]='C:/Users/Dell/wildfly-20.0.0.Final/bin/'
+# os.environ["UPLOADS_FOLDER"]='D:/Unisys-Governance-App/uploads'
+# os.environ["WILDFLY_DEPLOYMENTS"]='C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/'
+paths = load_json_file("paths.json")
+print(paths)
+
 
 def navigate_and_renamejson(src,project_name):
     new_json=project_name+'.json'
-    
     for item in os.listdir(src):
         s = os.path.join(src, item)      
         if s.endswith(".json"):
