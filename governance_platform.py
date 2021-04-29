@@ -22,11 +22,11 @@ from pyunpack import Archive
 from flask_cors import CORS
 from utils import *
 #to be added as environment variables
-# os.environ["JAVA_HOME"] = 'C:\Program Files\Java\jdk1.8.0_201'
-# os.environ["JBOSS_HOME"] = 'C:/Users/Dell/wildfly-20.0.0.Final'
-# os.environ["WILDFLY_BIN"]='C:/Users/Dell/wildfly-20.0.0.Final/bin/'
-# os.environ["UPLOADS_FOLDER"]='D:/Unisys-Governance-App/uploads'
-# os.environ["WILDFLY_DEPLOYMENTS"]='C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/'
+# paths["JAVA_HOME"] = 'C:\Program Files\Java\jdk1.8.0_201'
+# paths["JBOSS_HOME"] = 'C:/Users/Dell/wildfly-20.0.0.Final'
+# paths["WILDFLY_BIN"]='C:/Users/Dell/wildfly-20.0.0.Final/bin/'
+# paths["UPLOADS_FOLDER"]='D:/Unisys-Governance-App/uploads'
+# paths["WILDFLY_DEPLOYMENTS"]='C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/'
 paths = load_json_file("paths.json")
 print(paths)
 
@@ -59,9 +59,9 @@ def navigate_and_renameds(src,project_name):
  
 
 def TurnOn(project_name):
-    dir_src = os.environ['WILDFLY_DEPLOYMENTS']
+    dir_src = paths['WILDFLY_DEPLOYMENTS']
     os.getcwd()
-    os.chdir(os.environ['WILDFLY_BIN'])
+    os.chdir(paths['WILDFLY_BIN'])
     os.getcwd()
     print ("Wildfly started successfully")
     url = 'http://localhost:8080/'+project_name
@@ -69,11 +69,12 @@ def TurnOn(project_name):
     None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
     webbrowser.get('chrome').open(url)
+    os.system('mvn clean compile war:exploded')
     os.system('standalone.bat')
 
 def TurnOff(project_name):
     os.getcwd()
-    os.chdir(os.environ['WILDFLY_BIN'])
+    os.chdir(paths['WILDFLY_BIN'])
     os.getcwd()
     os.system('jboss-cli.bat --connect command=:reload')
     print ("wildfly restarted successfully")
@@ -114,6 +115,14 @@ class AuditApi(Resource):
         data = request.get_json()
         print(data)
         print("BYE")
+        operation=data['operation']
+        if operation == 'I':
+            data['operation'] = 'Insert'
+        elif operation == 'U':
+            data['operation'] = 'Update'
+        elif operation == 'D':
+            data['operation'] = 'Delete'
+        
 
         project_name = data['bizDataGroupId']
         print(project_name)
@@ -139,6 +148,83 @@ class AuditApi(Resource):
 
 api.add_resource(AuditApi, '/newaudit')
 
+# class PerformanceApi(Resource):
+    
+#     def get(self):
+#         return {'message': 'hello world'}
+
+#     def post(self):
+#         global current_app_name
+#         print("Post came")
+#         print()
+#         data = request.get_json()
+#         print(data)
+#         print("BYE")
+
+#         project_name = data['bizDataGroupId']
+#         print(project_name)
+#         project = Project.query.filter_by(project_name=project_name).first()
+#         print(project)
+        
+#         metrics = ProjectMetrics(maxiumumMemory=result['Maximum memory'],
+#              freeMemory=result['Free memory'],
+#             availableProcessors=result['Available processors'],
+#              totalMemory = result['Total memory'],proj=project)
+
+#         db.session.add(metrics)
+#         db.session.commit()
+#         if(current_app_name==project_name):
+#             socketio.emit("metrics",result,broadcast=True)
+#         else:
+#             print("Not sending")
+#         #Save the data in database
+#         #data = {'message': 'hello world'}
+#         return result
+
+
+# api.add_resource(PerformanceApi, '/newperformance')
+
+# class Performance(Resource):
+
+#     def get(self):
+#         return {'message': 'something'}
+
+#     def post(self):
+#         global current_app_name
+#         print("Post came")
+#         print()
+#         data = request.get_json()
+#         print(data)
+#         print("BYE")
+
+#         project_name = data['bizDataGroupId']
+#         print(project_name)
+#         project = Project.query.filter_by(project_name=project_name).first()
+#         print(project)
+        
+#         performance = Performance(maxiumumMemory=data['Maximum memory'],
+#             freeMemory=data['Free memory'],
+#             availableProcessors=data['Available processors'],
+#             totalMemory = data['Total memory'],
+#             proj=project)
+
+#         db.session.add(performance)
+#         db.session.commit()
+#         if(current_app_name==project_name):
+#             socketio.emit("performance",data,broadcast=True)
+#         else:
+#             print("Not sending")
+#         #Save the data in database
+#         #data = {'message': 'hello world'}
+#         return data
+
+
+# api.add_resource(Performance, '/performance')
+
+
+
+
+
 @app.route("/updatepowerstatus",methods=['POST', 'GET'])
 def updatepowerstatus():
     print("Came here")
@@ -151,12 +237,12 @@ def updatepowerstatus():
     project_name=project+'.war'
     project_json=project+'.json'
     project_ds=project+'-ds.xml'
-    src_path=os.environ['UPLOADS_FOLDER']+"/"+project_name
-    src_json=os.environ['UPLOADS_FOLDER']+"/"+project_json
-    src_ds=os.environ['UPLOADS_FOLDER']+"/"+project_ds
-    d_path=os.environ['WILDFLY_DEPLOYMENTS']
+    src_path=paths['UPLOADS_FOLDER']+"/"+project_name
+    src_json=paths['UPLOADS_FOLDER']+"/"+project_json
+    src_ds=paths['UPLOADS_FOLDER']+"/"+project_ds
+    d_path=paths['WILDFLY_DEPLOYMENTS']
     # del_path="C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/"+project_name
-    del_path=os.environ['WILDFLY_DEPLOYMENTS']+project_name
+    del_path=paths['WILDFLY_DEPLOYMENTS']+project_name
     del_json=d_path+project_json
     del_ds=d_path+project_ds
     # status=True
@@ -236,9 +322,9 @@ def newapplication():
         os.chdir(UPLOAD_FOLDER)
         os.getcwd()
         #os.mkdir(filename)
-        patoolib.extract_archive(filename, outdir=os.environ['UPLOADS_FOLDER'])       
+        patoolib.extract_archive(filename, outdir=paths['UPLOADS_FOLDER'])       
         print('File uploaded successfully!')
-        d_path=os.environ['UPLOADS_FOLDER']
+        d_path=paths['UPLOADS_FOLDER']
         navigate_and_renamejson(d_path,project_name)
         print("JSON file created")
         navigate_and_renameds(d_path,project_name)

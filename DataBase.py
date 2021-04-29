@@ -40,6 +40,18 @@ class ProjectAudit(db.Model):
     timestamp = db.Column("timestamp", db.String(40))
 
 
+# class ProjectMetrics(db.Model):
+#     peformance_id = db.Column("project_id", db.Integer,
+#                            primary_key=True, autoincrement=True)
+#     projid = db.Column(db.Integer, db.ForeignKey('project.project_id'),   
+#         nullable=False)    
+#     maxiumumMemory = db.Column("maxiumumMemory", db.String(100))
+#     freeMemory = db.Column("freeMemory", db.String(100))
+#     availableProcessors = db.Column("availableProcessors", db.String(100))
+#     totalMemory = db.Column("totalMemory", db.String(100))
+
+
+
     # def __init__(self, project_id, auditModuleName, auditDocumentName,operation,userName,timestamp):
     #     #self.project_id = random.randint(0,1000)
     #     self.projid = project_id    

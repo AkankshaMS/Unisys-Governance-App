@@ -1,5 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function syncperformance(){
+            // var dat = {
+            // project:project,
+            
+            // };
+            var uName='setup';
+            var password='setup';
+        // setTimeout(function(){
+        //     $(check).prop("checked",)
+        //     console.log("Happend")
+        // },2000)
+        //console.log($(e>'input[type=checkbox]:checked').length)
+        
+        $.ajax({
+            
+            type: 'GET',
+            // data:dat,
+            url: "http://localhost:8080/ecommerce/api/performance",
+            headers: {
+    "Authorization": "Basic " + btoa(uName + ":" + password)
+  },
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data)
+                var obj = JSON.parse(data)
+                // $("#card-body-container:last-child").remove()
+                $('#card-body-container').append('\
+                    <tr>\
+                <td class="two wide column">Maximum memory</td>\
+                <td>'+obj['Maximummemory']+'</td>\
+              </tr>\
+              <tr>\
+                <td>Free memory</td>\
+                <td>'+obj['Free memory']+'</td>\
+              </tr>\
+              <tr>\
+                <td>Available Processors</td>\
+                <td>'+obj['Available processors']+'</td>\
+              </tr>\
+                <tr>\
+                <td>total memory</td>\
+                <td>'+obj['Total memory']+'</td>\
+              </tr>');
+            }
+        });
+        
+
+    }  
+</script>
 <!-- All Applications -->
 <div class="main_content_iner ">
 
@@ -50,6 +101,26 @@
 
     <h4 class="ui horizontal divider header">
       </h4>
+
+
+<!--Performance metrics -->
+<form onclick="syncperformance()">
+    <input type="button"  name="sync" ><i class="fa fa-sync"></i>
+</form>
+
+<div class="container-fluid p-0">
+    <h4 class="ui horizontal divider header">
+      <i class="bar chart icon"></i>
+      Application metrics
+    </h4>
+    <table class="ui definition table">
+      <tbody id="card-body-container">
+        
+      </tbody>
+    </table>
+
+</div>
+
 
 </div>
 
