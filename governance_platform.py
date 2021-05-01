@@ -59,23 +59,31 @@ def navigate_and_renameds(src,project_name):
  
 
 def TurnOn(project_name):
-    dir_src = os.environ['WILDFLY_DEPLOYMENTS']
+    dir_src = paths['WILDFLY_DEPLOYMENTS']
     os.getcwd()
-    os.chdir(os.environ['WILDFLY_BIN'])
+    os.chdir(paths['WILDFLY_BIN'])
     os.getcwd()
     print ("Wildfly started successfully")
     url = 'http://localhost:8080/'+project_name
-    webbrowser.register('chrome', 
-    None,
-	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-    webbrowser.get('chrome').open(url)
-    os.system('standalone.bat')
+    if isLinux():
+        os.system('./standalone.sh')
+        webbrowser.open(url)
+    else:    
+
+        webbrowser.register('chrome', 
+        None,
+        webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
+        webbrowser.get('chrome').open(url)
+        os.system('standalone.bat')
 
 def TurnOff(project_name):
     os.getcwd()
-    os.chdir(os.environ['WILDFLY_BIN'])
+    os.chdir(paths['WILDFLY_BIN'])
     os.getcwd()
-    os.system('jboss-cli.bat --connect command=:reload')
+    if isLinux():
+        os.system('./jboss-cli.sh --connect command=:reload')
+    else:
+        os.system('jboss-cli.bat --connect command=:reload')
     print ("wildfly restarted successfully")
 
     
@@ -148,15 +156,16 @@ def updatepowerstatus():
     status = request.form['switch_status']
     project = request.form['project']
     print(project,status)
+
     project_name=project+'.war'
     project_json=project+'.json'
     project_ds=project+'-ds.xml'
-    src_path=os.environ['UPLOADS_FOLDER']+"/"+project_name
-    src_json=os.environ['UPLOADS_FOLDER']+"/"+project_json
-    src_ds=os.environ['UPLOADS_FOLDER']+"/"+project_ds
-    d_path=os.environ['WILDFLY_DEPLOYMENTS']
+    src_path=paths['UPLOADS_FOLDER']+"/"+project_name
+    src_json=paths['UPLOADS_FOLDER']+"/"+project_json
+    src_ds=paths['UPLOADS_FOLDER']+"/"+project_ds
+    d_path=paths['WILDFLY_DEPLOYMENTS']
     # del_path="C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/"+project_name
-    del_path=os.environ['WILDFLY_DEPLOYMENTS']+project_name
+    del_path=paths['WILDFLY_DEPLOYMENTS']+project_name
     del_json=d_path+project_json
     del_ds=d_path+project_ds
     # status=True
@@ -236,13 +245,14 @@ def newapplication():
         os.chdir(UPLOAD_FOLDER)
         os.getcwd()
         #os.mkdir(filename)
-        patoolib.extract_archive(filename, outdir=os.environ['UPLOADS_FOLDER'])       
+        patoolib.extract_archive(filename, outdir=paths['UPLOADS_FOLDER'])       
         print('File uploaded successfully!')
-        d_path=os.environ['UPLOADS_FOLDER']
-        navigate_and_renamejson(d_path,project_name)
-        print("JSON file created")
-        navigate_and_renameds(d_path,project_name)
-        print("DS file created")
+        
+        # d_path=paths['UPLOADS_FOLDER']
+        # navigate_and_renamejson(d_path,project_name)
+        # print("JSON file created")
+        # navigate_and_renameds(d_path,project_name)
+        # print("DS file created")
 
 
 
