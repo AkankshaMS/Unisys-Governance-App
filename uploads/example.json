@@ -30,7 +30,7 @@
 		// Directory path to the location for storage of content, caching and working files
 		// Note that if you are running on Windows do not use backslashes
 		// The value must be terminated with a slash - e.g. "C:/Workspace/content/"
-		directory: "D:/eclipse-workspace/Unisys-LCNC-FYP/content/ecommerce/",
+		directory: "E:/Unisys-LCNC-FYP/content/ecommerce/",
 		// CRON Expression for CMS Garbage Collection job - run at 7 past the hour every hour
 		gcCron: "0 7 0/1 1/1 * ? *",
 		// Attachments stored on file system or inline
@@ -39,7 +39,7 @@
 	// Add-ins settings
 	addins: {
 		// Where to look for add-ins - defaults to <content.directory>/addins/
-		directory: "D:/eclipse-workspace/Unisys-LCNC-FYP/content/ecommerce/addins/"
+		directory: "E:/Unisys-LCNC-FYP/content/ecommerce/addins/"
 	},
 	// Thumbnail settings
 	thumbnail: {
