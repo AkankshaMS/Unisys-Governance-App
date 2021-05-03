@@ -19,7 +19,10 @@ $(document).ready(function() {
 
     });
 
-
+    // sock.on('switch', function(data) {
+    //     $("#switch"+data["num"]).prop("checked","true")
+    //     console.log("checked");
+    // });
 
   
 });

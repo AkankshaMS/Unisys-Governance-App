@@ -1,5 +1,5 @@
-// $(document).ready(function() {
-
+ $(document).ready(function() {
+    //$(".state_check").prop("checked","true");
     function  updatePowerStatus(check,project){
         console.log($(check).prop("checked"))
         console.log(project)
@@ -24,7 +24,26 @@
         
 
     }
+
+
+
+$("#file").change(function(e){
+
+    var project_name = $("#file").val().split("\\").pop();
+    $("#file_path").text(project_name)
     
+    
+
+});
+
+
+
+
+
+
+
+
+});
     // function syncperformance(project){
     //         var dat = {
     //         project:project,

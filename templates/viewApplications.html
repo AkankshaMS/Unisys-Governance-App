@@ -53,7 +53,7 @@
                                                 
 
                                                 <form onclick="updatePowerStatus(this[0],'{{project.project_name}}')">
-                                                <input type="checkbox" data-toggle="toggle" name="check" value="1"
+                                                <input id="switch{{loop.index}}"  type="checkbox" data-toggle="toggle" name="check" value="1"
                                                                 data-on="&nbsp;On &nbsp;" data-off=" Off "
                                                                 data-onstyle="success" data-offstyle="danger"
                                                                 data-style="ios">

@@ -1,6 +1,7 @@
 import os
 import requests
 import shutil
+import time
 from distutils.dir_util import copy_tree
 from requests.auth import HTTPBasicAuth
 from flask import Flask, redirect, url_for, render_template, request, session, flash
@@ -21,6 +22,9 @@ import patoolib
 from pyunpack import Archive
 from flask_cors import CORS
 from utils import *
+import subprocess
+from threading import Thread
+
 #to be added as environment variables
 # paths["JAVA_HOME"] = 'C:\Program Files\Java\jdk1.8.0_201'
 # paths["JBOSS_HOME"] = 'C:/Users/Dell/wildfly-20.0.0.Final'
@@ -28,65 +32,9 @@ from utils import *
 # paths["UPLOADS_FOLDER"]='D:/Unisys-Governance-App/uploads'
 # paths["WILDFLY_DEPLOYMENTS"]='C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/'
 paths = load_json_file("paths.json")
-print(paths)
 
 
-def navigate_and_renamejson(src,project_name):
-    new_json=project_name+'.json'
-    for item in os.listdir(src):
-        s = os.path.join(src, item)      
-        if s.endswith(".json"):
-            shutil.copy(s, os.path.join(src, new_json))
-    with open(new_json, 'r') as file :
-        filedata = file.read()
-    filedata = filedata.replace('ecommerce', project_name)
-    with open(new_json, 'w') as file:
-        file.write(filedata)
- 
-              
 
-def navigate_and_renameds(src,project_name):
-    new_ds=project_name+'-ds.xml'
-    for item in os.listdir(src):
-        s = os.path.join(src, item)
-        if s.endswith("-ds.xml"):
-            shutil.copy(s, os.path.join(src, new_ds))
-    with open(new_ds, 'r') as file :
-        filedata = file.read()
-    filedata = filedata.replace('ecommerce', project_name)
-    with open(new_ds, 'w') as file:
-        file.write(filedata)
- 
-
-def TurnOn(project_name):
-    dir_src = paths['WILDFLY_DEPLOYMENTS']
-    os.getcwd()
-    os.chdir(paths['WILDFLY_BIN'])
-    os.getcwd()
-    print ("Wildfly started successfully")
-    url = 'http://localhost:8080/'+project_name
-    if isLinux():
-        os.system('./standalone.sh')
-        webbrowser.open(url)
-    else:    
-
-        webbrowser.register('chrome', 
-        None,
-        webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-        webbrowser.get('chrome').open(url)
-        os.system('standalone.bat')
-
-def TurnOff(project_name):
-    os.getcwd()
-    os.chdir(paths['WILDFLY_BIN'])
-    os.getcwd()
-    if isLinux():
-        os.system('./jboss-cli.sh --connect command=:reload')
-    else:
-        os.system('jboss-cli.bat --connect command=:reload')
-    print ("wildfly restarted successfully")
-
-    
 
 #App initialization
 app = Flask(__name__)
@@ -151,82 +99,7 @@ class AuditApi(Resource):
         #Save the data in database
         #data = {'message': 'hello world'}
         return data
-
-
 api.add_resource(AuditApi, '/newaudit')
-
-# class PerformanceApi(Resource):
-    
-#     def get(self):
-#         return {'message': 'hello world'}
-
-#     def post(self):
-#         global current_app_name
-#         print("Post came")
-#         print()
-#         data = request.get_json()
-#         print(data)
-#         print("BYE")
-
-#         project_name = data['bizDataGroupId']
-#         print(project_name)
-#         project = Project.query.filter_by(project_name=project_name).first()
-#         print(project)
-        
-#         metrics = ProjectMetrics(maxiumumMemory=result['Maximum memory'],
-#              freeMemory=result['Free memory'],
-#             availableProcessors=result['Available processors'],
-#              totalMemory = result['Total memory'],proj=project)
-
-#         db.session.add(metrics)
-#         db.session.commit()
-#         if(current_app_name==project_name):
-#             socketio.emit("metrics",result,broadcast=True)
-#         else:
-#             print("Not sending")
-#         #Save the data in database
-#         #data = {'message': 'hello world'}
-#         return result
-
-
-# api.add_resource(PerformanceApi, '/newperformance')
-
-# class Performance(Resource):
-
-#     def get(self):
-#         return {'message': 'something'}
-
-#     def post(self):
-#         global current_app_name
-#         print("Post came")
-#         print()
-#         data = request.get_json()
-#         print(data)
-#         print("BYE")
-
-#         project_name = data['bizDataGroupId']
-#         print(project_name)
-#         project = Project.query.filter_by(project_name=project_name).first()
-#         print(project)
-        
-#         performance = Performance(maxiumumMemory=data['Maximum memory'],
-#             freeMemory=data['Free memory'],
-#             availableProcessors=data['Available processors'],
-#             totalMemory = data['Total memory'],
-#             proj=project)
-
-#         db.session.add(performance)
-#         db.session.commit()
-#         if(current_app_name==project_name):
-#             socketio.emit("performance",data,broadcast=True)
-#         else:
-#             print("Not sending")
-#         #Save the data in database
-#         #data = {'message': 'hello world'}
-#         return data
-
-
-# api.add_resource(Performance, '/performance')
 
 
 
@@ -242,30 +115,13 @@ def updatepowerstatus():
     project = request.form['project']
     print(project,status)
 
-    project_name=project+'.war'
-    project_json=project+'.json'
-    project_ds=project+'-ds.xml'
-    src_path=paths['UPLOADS_FOLDER']+"/"+project_name
-    src_json=paths['UPLOADS_FOLDER']+"/"+project_json
-    src_ds=paths['UPLOADS_FOLDER']+"/"+project_ds
-    d_path=paths['WILDFLY_DEPLOYMENTS']
-    # del_path="C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/"+project_name
-    del_path=paths['WILDFLY_DEPLOYMENTS']+project_name
-    del_json=d_path+project_json
-    del_ds=d_path+project_ds
+    
     # status=True
     if status == 'false': 
         # os.mkdir(project_name)      
-        copy_tree(src_path, d_path+project_name)
-        shutil.copy(src_json,d_path)
-        shutil.copy(src_ds,d_path)
-        print("Copied")
         TurnOn(project)
         
     elif status== 'true':
-        shutil.rmtree(del_path,ignore_errors=True)
-        os.remove(del_ds)
-        os.remove(del_json)
         TurnOff(project)
         print("Deleted")
     else:
@@ -315,12 +171,6 @@ def newapplication():
         print(project_name)
         database_dialect = request.form['database_dialect']
         print(database_dialect)
-        # files = request.files.getlist('files[]')
-        # print(files)
-        # for file in files:
-        #     # if file (file.filename):
-        #     filename = secure_filename(file.filename)
-        #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         if request.method =='POST':
             file = request.files['file']
@@ -332,33 +182,7 @@ def newapplication():
         #os.mkdir(filename)
         patoolib.extract_archive(filename, outdir=paths['UPLOADS_FOLDER'])       
         print('File uploaded successfully!')
-        
-        # d_path=paths['UPLOADS_FOLDER']
-        # navigate_and_renamejson(d_path,project_name)
-        # print("JSON file created")
-        # navigate_and_renameds(d_path,project_name)
-        # print("DS file created")
 
-
-
-        # print("File is",request.files['file'])
-        # # check if the post request has the file part
-        # if 'file' not in request.files:
-        #     print('HI')
-        #     flash('No file part')
-        #     return redirect(request.url)
-        # project_file = request.files['file']
-        # # if user does not select file
-        # if project_file.filename == '':
-        #     flash('No selected file')
-        #     # return redirect(request.url)
-        # basedir = os.path.abspath(os.path.dirname(__file__))
-        # project_file.save(os.path.join(
-        #     basedir, "./newapplication", project_file.filename))
-        # print('File uploaded successfully!')
-        
-        
-        
         
         
         
@@ -369,13 +193,9 @@ def newapplication():
 
 
 
-
-        
-        #Aka
-        # return basedir
-        # return jsonify({"success": True}), 200
         flash("Project created succesfully")
-        return redirect(request.url)
+        #return redirect(request.url)
+        return render_template("newApplication.html",Alert="Project created succesfully",Alert_type="success")
     return render_template("newApplication.html")
 
 
@@ -405,7 +225,20 @@ def audit():
     return render_template("viewAudit.html", project_list=project_list)
 
 
+def start_wildfly_server():
+    #for i,project in enumerate(Project.query.all()):
+    #    data = {'num':i,'value':'true'}
+    #    socketio.emit("switch",data,broadcast=True)
+    start_all_projects()
+
 if __name__ == "__main__":
     db.create_all()
+
+    from wildserver import * 
+    #start_all_projects()
+    wild_thread = Thread(target=start_wildfly_server,daemon=True)
+    wild_thread.start()
+
+    #time.sleep(10)    
     socketio.run(app)
     # app.run(debug=True)

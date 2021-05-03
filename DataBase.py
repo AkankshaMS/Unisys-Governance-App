@@ -16,10 +16,10 @@ class User(db.Model):
 class Project(db.Model):
     project_id = db.Column("project_id", db.Integer,
                            primary_key=True, autoincrement=True)
-    project_name = db.Column("project_name", db.String(100))
-    database_dialect = db.Column("database_dialect", db.String(100))
+    project_name = db.Column("project_name", db.String(50))
+    database_dialect = db.Column("database_dialect", db.String(30))
     file = db.Column("base_directory", db.String(100))
-    curr_date = db.Column("date", db.DateTime, default=datetime.utcnow)
+    curr_date = db.Column("date", db.String(40), default=date.today().strftime("%d/%m/%Y"))
     audits = db.relationship('ProjectAudit', backref='proj', lazy=True)
     
     def __init__(self, pname, database_dialect, base_dir):

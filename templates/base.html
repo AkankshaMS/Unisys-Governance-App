@@ -4,7 +4,7 @@
 <!-- Mirrored from demo.dashboardpack.com/cryptocurrency-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 17 Apr 2021 09:12:30 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -55,7 +55,10 @@
     <!-- style CSS -->
     <link rel="stylesheet" href="/static/css/style.css" />
     <!-- <link rel="stylesheet" href="/static/css/colors/default.css" id="colorSkinCSS"> -->
-    <style>
+    <link rel="stylesheet" href="/static/alertifyjs/css/alertify.min.css">
+    <link rel="stylesheet" href="/static/css/alerts.css">
+
+   <style>
         h3 {text-align: center}
         p {text-align: center}
         .toggle.ios,
@@ -74,6 +77,8 @@
     }
     </style>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/alerts.js"></script>
 
 </head>
 <body class="crm_body_bg">
@@ -177,8 +182,8 @@
         </div>
     </div>
     <!--/ menu  -->
-
-
+ <div id="alert" class="alert alert-success myalert" role="alert" >
+  </div>
     <div id="content">{% block content %}{% endblock %}</div>
 </section>
 <!-- main content part end -->
@@ -186,13 +191,19 @@
 <!-- footer  -->
 <!-- <script src="/static/js/jquery-3.4.1.min.js"></script> -->
 <!-- popper js -->
-
+{% if Alert %}
+<script>
+    showMessage('{{Alert}}','{{Alert_type}}')
+</script>
+{% endif %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="/static/js/popper.min.js"></script>
 <script src="/static/js/websock.js"></script>
 <script src="/static/js/calls.js"></script>
+<script src="/static/alertifyjs/alertify.min.js"></script>
+
+
 
 <!-- bootstarp js -->
 <script src="/static/js/bootstrap.min.js"></script>
