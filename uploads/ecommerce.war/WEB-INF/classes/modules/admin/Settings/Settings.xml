@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<document name="Settings"
+				xmlns="http://www.skyve.org/xml/document"
+				xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<persistent name="Settings">
+	</persistent>		
+	<singularAlias>Settings</singularAlias>
+	<pluralAlias>Settings</pluralAlias>
+	<audited>false</audited>
+	<iconStyleClass>fa fa-cog</iconStyleClass>
+	<bizKey expression="Settings"></bizKey>
+	<attributes>
+		<boolean name="wishlist">
+			<documentation>
+				<![CDATA[
+					Enable or Disable wishlist
+				]]>
+			</documentation>
+			<displayName>Wishlist</displayName>
+		</boolean>
+		
+	</attributes>
+</document>

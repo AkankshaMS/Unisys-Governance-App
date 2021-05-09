@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="user"
+	prototype="true" name="user"
+	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+	<homeRef>edit</homeRef>
+	<homeDocument>UserLogin</homeDocument>
+	<documents>
+		<document ref="Address" />
+		<document ref="UserAddress" />
+		<document ref="UserLogin" />
+	</documents>
+	<roles>
+		<role name="Maintainer">
+			<description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
+			<privileges>
+				<document name="UserLogin" permission="CRUDC" />
+				<document name="Address" permission="CRUDC" />
+				<document name="UserAddress" permission="CRUDC" />
+
+			</privileges>
+		</role>
+	</roles>
+	<menu>
+		<list document="UserLogin" name="UserLogin">
+			<role name="Maintainer" />
+		</list>
+		<list document="Address" name="Address">
+			<role name="Maintainer" />
+		</list>
+		<list document="UserAddress" name="UserAddress">
+			<role name="Maintainer" />
+		</list>
+	</menu>
+
+	
+
+</module>

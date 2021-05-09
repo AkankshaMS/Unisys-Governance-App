@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Product"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="Product" />
+
+	<singularAlias>Product</singularAlias>
+	<pluralAlias>Products</pluralAlias>
+	<bizKey expression="{productid}" />
+	<attributes>
+		<text name="productid" required="true">
+			<displayName>Product Id</displayName>
+						<length>10</length>
+			
+		</text>
+
+		<text name="productname" required="true">
+			<displayName>Product Name</displayName>
+			<length>50</length>
+		</text>
+
+
+		<integer name="productprice" required="true">
+			<displayName>Product Price</displayName>
+		</integer>
+		<integer name="productstock" required="true">
+			<displayName>Product Stock</displayName>
+		</integer>
+
+		<image name="smallimg">
+			<displayName>Small Image</displayName>
+
+		</image>
+		<image name="largeimg">
+			<displayName>Large Image</displayName>
+
+		</image>
+		<text name="description" required="true">
+			<displayName>Description</displayName>
+			<length>50</length>
+		</text>
+	</attributes>
+</document>

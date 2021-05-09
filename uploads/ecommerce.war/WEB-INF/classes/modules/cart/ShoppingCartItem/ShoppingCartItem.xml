@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ShoppingCartItem" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+        <persistent name="ShoppingCartItem"/>
+    
+    <singularAlias>ShoppingCartItem</singularAlias>
+    <pluralAlias>shoppingcartitems</pluralAlias>
+	<bizKey expression="{cartitemid}" />
+	<attributes>
+		<text name="cartitemid" required="true">
+			<displayName>Cart Item Id</displayName>
+			<length>10</length>
+		</text>
+		<association type="aggregation" name="cartid"
+			required="true">
+			<displayName>Cart Id</displayName>
+			<documentName>ShoppingCart</documentName>
+		</association>
+		
+		<association type="aggregation" name="productid"
+			required="true">
+			<displayName>Product Id</displayName>
+			<documentName>Product</documentName>
+		</association>
+		<integer name="quantity" required="true">
+			<displayName>Quantity</displayName>
+		</integer>
+		
+		<integer name="price" required="true">
+			<displayName>Price</displayName>
+		</integer>
+		
+
+	</attributes>
+</document>

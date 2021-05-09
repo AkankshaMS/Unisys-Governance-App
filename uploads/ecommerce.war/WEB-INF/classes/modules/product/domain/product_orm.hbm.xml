@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+
+	<typedef name="OptimisticLock" class="org.skyve.impl.domain.types.OptimisticLockUserType" />
+	<typedef name="Decimal2" class="org.skyve.impl.domain.types.Decimal2UserType" />
+	<typedef name="Decimal5" class="org.skyve.impl.domain.types.Decimal5UserType" />
+	<typedef name="Decimal10" class="org.skyve.impl.domain.types.Decimal10UserType" />
+	<typedef name="DateOnly" class="org.skyve.impl.domain.types.DateOnlyUserType" />
+	<typedef name="DateTime" class="org.skyve.impl.domain.types.DateTimeUserType" />
+	<typedef name="TimeOnly" class="org.skyve.impl.domain.types.TimeOnlyUserType" />
+	<typedef name="Timestamp" class="org.skyve.impl.domain.types.TimestampUserType" />
+	<typedef name="Enum" class="org.skyve.impl.domain.types.EnumUserType" />
+	<class name="modules.product.domain.Category" table="Category" entity-name="productCategory">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="categoryid" length="10" />
+		<property name="sequencenum" length="2" />
+		<property name="categoryname" length="30" />
+		<filter name="productCategoryNoneFilter" condition="1=0"/>
+		<filter name="productCategoryCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="productCategoryDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="productCategoryUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.product.domain.Product" table="Product" entity-name="productProduct">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="productid" length="10" />
+		<property name="productname" length="50" />
+		<property name="productprice" />
+		<property name="productstock" />
+		<property name="smallimg" length="36" />
+		<property name="largeimg" length="36" />
+		<property name="description" length="50" />
+		<filter name="productProductNoneFilter" condition="1=0"/>
+		<filter name="productProductCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="productProductDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="productProductUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.product.domain.ProductCategoryMember" table="ProductCategoryMember" entity-name="productProductCategoryMember">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="categoryid" entity-name="productCategory" column="categoryid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ProductCategoryMember_categoryid"/>
+		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_ProductCategoryMember_productid"/>
+		<property name="sequencenum" length="2" />
+		<filter name="productProductCategoryMemberNoneFilter" condition="1=0"/>
+		<filter name="productProductCategoryMemberCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="productProductCategoryMemberDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="productProductCategoryMemberUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<filter-def name="productCategoryNoneFilter" />
+	<filter-def name="productCategoryCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="productCategoryDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="productCategoryUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductNoneFilter" />
+	<filter-def name="productProductCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductCategoryMemberNoneFilter" />
+	<filter-def name="productProductCategoryMemberCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductCategoryMemberDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="productProductCategoryMemberUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+</hibernate-mapping>

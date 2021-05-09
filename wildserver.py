@@ -13,7 +13,7 @@ def start_server():
     if isLinux():
         #subprocess.Popen(["bash",f"{wildpath}/standalone.sh"])
         #subprocess.check_output(["bash",f"{wildpath}/standalone.sh"])
-        pass
+        print()
         #os.system(f"bash {wildpath}/standalone.sh")
         #webbrowser.open(url)
     else:    

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="order" name="order" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+    <homeRef>edit</homeRef>
+    <homeDocument>OrderHeader</homeDocument>
+    <documents>
+        <document ref="OrderHeader"/>
+        <document ref="OrderItem"/>
+        <document ref="Product" moduleRef="product"/> 
+        <document ref="UserLogin" moduleRef="user" />
+        <document ref="Address" moduleRef="user" />
+    </documents>
+    <roles>
+        <role name="Maintainer">
+            <description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
+            <privileges>
+                <document name="OrderHeader" permission="CRUDC"/>
+                <document name="OrderItem" permission="CRUDC"/>
+            </privileges>
+        </role>
+    </roles>
+    <menu>
+        <list document="OrderHeader" name="OrderHeader">
+            <role name="Maintainer"/>
+        </list>
+        <list document="OrderItem" name="OrderItem">
+            <role name="Maintainer"/>
+        </list>
+
+    </menu>
+</module>

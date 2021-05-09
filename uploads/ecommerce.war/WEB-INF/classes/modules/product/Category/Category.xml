@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Category"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="Category" />
+
+	<singularAlias>Category</singularAlias>
+	<pluralAlias>Categories</pluralAlias>
+	<bizKey expression="{categoryid}" />
+	<attributes>
+		<text name="categoryid" required="true">
+			<displayName>Category Id</displayName>
+						<length>10</length>
+			
+		</text>
+
+		<text name="sequencenum">
+			<displayName>Sequence number</displayName>
+						<length>2</length>
+			
+		</text>
+		<text name="categoryname" required="true">
+			<displayName>Category</displayName>
+			<length>30</length>
+		</text>
+	</attributes>
+</document>

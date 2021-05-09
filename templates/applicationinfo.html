@@ -1,56 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-    function syncperformance(){
-            // var dat = {
-            // project:project,
-            
-            // };
-            var uName='setup';
-            var password='setup';
-        // setTimeout(function(){
-        //     $(check).prop("checked",)
-        //     console.log("Happend")
-        // },2000)
-        //console.log($(e>'input[type=checkbox]:checked').length)
-        
-        $.ajax({
-            
-            type: 'GET',
-            // data:dat,
-            url: "http://localhost:8080/ecommerce/api/performance",
-            headers: {
-    "Authorization": "Basic " + btoa(uName + ":" + password)
-  },
-            contentType: 'application/json',
-            success: function (data) {
-                console.log(data)
-                var obj = JSON.parse(data)
-                // $("#card-body-container:last-child").remove()
-                $('#card-body-container').append('\
-                    <tr>\
-                <td class="two wide column">Maximum memory</td>\
-                <td>'+obj['Maximummemory']+'</td>\
-              </tr>\
-              <tr>\
-                <td>Free memory</td>\
-                <td>'+obj['Free memory']+'</td>\
-              </tr>\
-              <tr>\
-                <td>Available Processors</td>\
-                <td>'+obj['Available processors']+'</td>\
-              </tr>\
-                <tr>\
-                <td>total memory</td>\
-                <td>'+obj['Total memory']+'</td>\
-              </tr>');
-            }
-        });
-        
 
-    }  
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<script src="/static/PerformanceMetrics.js"></script>
+
+<script>
+
+    syncperformance('{{project.project_name}}');
 </script>
+
+
 <!-- All Applications -->
 <div class="main_content_iner ">
 
@@ -75,67 +37,150 @@
 
 
     <div class="container-fluid p-0">
-          <h4 class="ui horizontal divider header">
+        <h4 class="ui horizontal divider header">
             <i class="bar chart icon"></i>
             Application info
-          </h4>
-          <table class="ui definition table">
+        </h4>
+        <table class="ui definition table">
             <tbody>
-              <tr>
-                <td class="two wide column">Name</td>
-                <td>{{project.project_name}}</td>
-              </tr>
-              <tr>
-                <td>Database</td>
-                <td>{{project.database_dialect}}</td>
-              </tr>
+                <tr>
+                    <td class="two wide column">Name</td>
+                    <td>{{project.project_name}}</td>
+                </tr>
+                <tr>
+                    <td>Database</td>
+                    <td>{{project.database_dialect}}</td>
+                </tr>
 
-              <tr>
-                <td>Created Date</td>
-                <td>{{project.curr_date}}</td>
-              </tr>
+                <tr>
+                    <td>Created Date</td>
+                    <td>{{project.curr_date}}</td>
+                </tr>
             </tbody>
-          </table>
+        </table>
 
     </div>
 
     <h4 class="ui horizontal divider header">
-      </h4>
-
-
-<!--Performance metrics -->
-<form onclick="syncperformance()">
-    <button class="btn btn-primary">Sync Performance<i class="fa fa-sync"></i></button>
-</form>
-
-<div class="container-fluid p-0">
-    <h4 class="ui horizontal divider header">
-      <i class="bar chart icon"></i>
-      Application metrics
     </h4>
-    <table class="ui definition table">
-      <tbody id="card-body-container">
-        
-      </tbody>
-    </table>
 
-</div>
+
+    <!--Performance metrics -->
+    <!-- <button class="btn btn-primary" onclick="syncperformance()">Sync Performance<i class="fa fa-sync"></i></button> -->
+
+    <div class="container-fluid p-0">
+        <h4 class="ui horizontal divider header">
+            <i class="bar chart icon"></i>
+            Application metrics
+        </h4>
+
+        <div class="row">
+            <div class="col">
+                <table class="ui definition table">
+
+
+                    <tbody id="card-body-container">
+                
+              </tbody>
+        
+<!--         
+                    <tbody id="card-body-container">
+        
+                        <tr>
+                            <td class="two wide column">Host</td>
+                            <td>ram-HP-Laptop-15-da0xxx@127.0.1.1</td>
+                        </tr>
+                        <tr>
+                            <td>Operating System</td>
+                            <td>Linux, 5.4.0-72-generic , amd64/64</td>
+                        </tr>
+                        <tr>
+                            <td>Available Processors</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>javaVersion</td>
+                            <td>OpenJDK Runtime Environment, 11.0.10+9-Ubuntu-0ubuntu1.20.04</td>
+                        </tr>
+                        <tr>
+                            <td>processCpuTimeMillis</td>
+                            <td>169870</td>
+                        </tr>
+                        <tr>
+                            <td>systemLoadAverage</td>
+                            <td>0.74</td>
+                        </tr>
+                        <tr>
+                            <td>systemCpuLoad</td>
+                            <td>13.54131102765449</td>
+                        </tr>
+                        <tr>
+                            <td>startDate</td>
+                            <td>2021-05-09 06:31:06.423 UTC</td>
+                        </tr>
+                        <tr>
+                            <td>threadCount</td>
+                            <td>111</td>
+                        </tr>
+                    </tbody>
+         -->
+        
+                </table>
+        
+            </div>
+            <div class="col-4">
+
+                <div class="ui table gauge-wrapper">
+                    <div class="gauge four rischio" style="margin-left: 25%;">
+                      <div class="slice-colors">
+                        <div class="st slice-item"></div>
+                        <div class="st slice-item"></div>
+                        <div class="st slice-item"></div>
+                        <div class="st slice-item"></div>
+                      </div>
+                      <div class="needle" id="cpu-load-needle"></div>
+                      <div class="gauge-center">
+                        <div class="label">CPU Load</div>
+                        <div class="number" id="cpu-load-gauge">23%</div>
+                      </div>    
+                    </div>
+                  </div>
+                  <div class="ui table gauge-wrapper">
+                    <div class="semi-donut margin" id="memory-usage">
+                    <h4 id="memory-usage-gauge"> Memory Use -
+                    10%</h4>
+
+                    <!-- <div class="row">
+                    </div>
+                    <br>
+                    <div class="row">
+
+                    </div> -->
+                 
+               </div>
+  
+
+                  </div>
+        
+                </div>
+
+    </div>
 
 
 </div>
 
 <!-- All Audits of Projects -->
-    <div class="main_content_iner ">
-        <div class="container-fluid p-0">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="white_card card_height_100 mb_30">
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
 
-                        <h4 class="ui horizontal divider header">
-                            <i class="bar chart icon"></i>
-                            Application Audits
-                          </h4>
-                        <!-- <div class="white_card_header">
+                    <h4 class="ui horizontal divider header">
+                        <i class="bar chart icon"></i>
+                        Application Audits
+                    </h4>
+                    <!-- <div class="white_card_header">
                             <div class="box_header m-0">
                                 <div class="main-title">
                                     <h3 class="m-0">Audit table </h3>
@@ -143,11 +188,11 @@
                             </div>
                         </div> -->
 
-                        <div class="white_card_body">
-                            <div class="QA_section">
+                    <div class="white_card_body">
+                        <div class="QA_section">
 
 
-                                <!-- <div class="white_box_tittle list_header">
+                            <!-- <div class="white_box_tittle list_header">
                                     
                                     <div class="box_right d-flex lms_block">
                                         <div class="serach_field_2">
@@ -165,39 +210,38 @@
                                         </div>
                                     </div>
                                 </div> -->
-        
-                                <div class="QA_table mb_30">
-                                    <!-- table-responsive -->
-                                    <table id = "audit-table" class="table lms_table_active3 ">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">User</th>
-                                                <th scope="col">Module</th>
-                                                <th scope="col">Document</th>
-                                                <th scope="col">Description</th>
-                                                <th scope="col">Timestamp</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="audit_body">
-                                            {% for audit in project_audits %}
 
-                                            <tr>
-                                                <td>
-                                                    {{audit.userName}}
-                                                </td>
-                                                <td>{{audit.auditDocumentName}}</td>
-                                                <td>{{audit.auditModuleName}}</td>
-                                                <td>{{audit.operation}}</td>
-                                                <td>{{audit.timestamp}}</td>
+                            <div class="QA_table mb_30">
+                                <!-- table-responsive -->
+                                <table id="audit-table" class="table lms_table_active3 ">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Document</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Timestamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="audit_body">
+                                        {% for audit in project_audits %}
 
-                                            </tr> 
-                                            {% endfor %}
+                                        <tr>
+                                            <td>
+                                                {{audit.userName}}
+                                            </td>
+                                            <td>{{audit.auditDocumentName}}</td>
+                                            <td>{{audit.auditModuleName}}</td>
+                                            <td>{{audit.operation}}</td>
+                                            <td>{{audit.timestamp}}</td>
 
-                                        </tbody>
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
 
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -205,5 +249,6 @@
             </div>
         </div>
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

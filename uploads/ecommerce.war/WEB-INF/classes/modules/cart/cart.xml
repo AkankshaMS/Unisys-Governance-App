@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="cart"
+	name="cart"
+	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+	<homeRef>list</homeRef>
+	<homeDocument>ShoppingCartItem</homeDocument>
+	<documents>
+		<document ref="ShoppingCart" />
+		<document ref="ShoppingCartItem" />
+		<document ref="Product" moduleRef="product" />
+<document ref="UserLogin" moduleRef="user" />
+	</documents>
+	<roles>
+		<role name="Maintainer">
+			<description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
+			<privileges>
+				<document name="ShoppingCart" permission="CRUDC" />
+				<document name="ShoppingCartItem" permission="CRUDC" />
+
+			</privileges>
+		</role>
+	</roles>
+	<menu>
+		<list document="ShoppingCart" name="ShoppingCart">
+			<role name="Maintainer" />
+		</list>
+		<list document="ShoppingCartItem" name="ShoppingCartItem">
+			<role name="Maintainer" />
+		</list>
+
+	</menu>
+	<queries>
+	<query documentName="ShoppingCart" name="GetCartBiz">
+				<description>All Shopping Bizes</description>
+	
+		<columns>
+					<column binding="bizLock" />
+				<column binding="bizVersion" />
+		</columns>
+	
+	</query>
+	</queries>
+</module>

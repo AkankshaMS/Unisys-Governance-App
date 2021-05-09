@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="product" name="product" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+    <homeRef>edit</homeRef>
+    <homeDocument>Category</homeDocument>
+    <documents>
+        <document ref="Category"/>
+        <document ref="Product"/>
+        <document ref="ProductCategoryMember"/>
+    </documents>
+    <roles>
+        <role name="Maintainer">
+            <description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
+            <privileges>
+                <document name="Category" permission="CRUDC"/>
+                <document name="Product" permission="CRUDC"/>
+                <document name="ProductCategoryMember" permission="CRUDC"/>
+            </privileges>
+        </role>
+    </roles>
+    <menu>
+        <list document="Category" name="Category">
+            <role name="Maintainer"/>
+        </list>
+        <list document="Product" name="Product">
+            <role name="Maintainer"/>
+        </list>
+        <list document="ProductCategoryMember" name="ProductCategoryMember">
+            <role name="Maintainer"/>
+        </list>
+    </menu>
+</module>

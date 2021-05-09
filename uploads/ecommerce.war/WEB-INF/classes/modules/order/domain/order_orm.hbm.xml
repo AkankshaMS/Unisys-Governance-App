@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+
+	<typedef name="OptimisticLock" class="org.skyve.impl.domain.types.OptimisticLockUserType" />
+	<typedef name="Decimal2" class="org.skyve.impl.domain.types.Decimal2UserType" />
+	<typedef name="Decimal5" class="org.skyve.impl.domain.types.Decimal5UserType" />
+	<typedef name="Decimal10" class="org.skyve.impl.domain.types.Decimal10UserType" />
+	<typedef name="DateOnly" class="org.skyve.impl.domain.types.DateOnlyUserType" />
+	<typedef name="DateTime" class="org.skyve.impl.domain.types.DateTimeUserType" />
+	<typedef name="TimeOnly" class="org.skyve.impl.domain.types.TimeOnlyUserType" />
+	<typedef name="Timestamp" class="org.skyve.impl.domain.types.TimestampUserType" />
+	<typedef name="Enum" class="org.skyve.impl.domain.types.EnumUserType" />
+	<class name="modules.order.domain.OrderHeader" table="OrderHeader" entity-name="orderOrderHeader">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="orderid" length="10" />
+		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_userloginid"/>
+		<property name="subtotal" />
+		<property name="grandtotal" />
+		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderHeader_addressid"/>
+		<property name="paymentmethod" length="20" />
+		<property name="orderstatus" length="20" />
+		<property name="orderdate" type="DateTime" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<filter name="orderOrderHeaderNoneFilter" condition="1=0"/>
+		<filter name="orderOrderHeaderCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="orderOrderHeaderDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="orderOrderHeaderUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.order.domain.OrderItem" table="OrderItem" entity-name="orderOrderItem">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="orderitemid" length="10" />
+		<many-to-one name="orderid" entity-name="orderOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderItem_orderid"/>
+		<many-to-one name="productid" entity-name="productProduct" column="productid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_OrderItem_productid"/>
+		<property name="quantity" />
+		<property name="unitprice" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<filter name="orderOrderItemNoneFilter" condition="1=0"/>
+		<filter name="orderOrderItemCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="orderOrderItemDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="orderOrderItemUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<filter-def name="orderOrderHeaderNoneFilter" />
+	<filter-def name="orderOrderHeaderCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="orderOrderHeaderDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="orderOrderHeaderUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="orderOrderItemNoneFilter" />
+	<filter-def name="orderOrderItemCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="orderOrderItemDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="orderOrderItemUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+</hibernate-mapping>

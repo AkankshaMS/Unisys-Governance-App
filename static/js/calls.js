@@ -1,4 +1,4 @@
- $(document).ready(function() {
+ //
     //$(".state_check").prop("checked","true");
     function  updatePowerStatus(check,project){
         console.log($(check).prop("checked"))
@@ -26,7 +26,7 @@
     }
 
 
-
+    $(document).ready(function() {
 $("#file").change(function(e){
 
     var project_name = $("#file").val().split("\\").pop();

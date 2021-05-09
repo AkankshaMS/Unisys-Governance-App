@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="wishlist"
+	name="wishlist"
+	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+	<homeRef>edit</homeRef>
+	<homeDocument>ShoppingListItem</homeDocument>
+	<documents>
+		<document ref="ShoppingListItem" />
+		<document ref="UserLogin" moduleRef="user" />
+		<document ref="Product" moduleRef="product" />
+		<document ref="Category" moduleRef="product" />
+
+	</documents>
+	<roles>
+		<role name="Maintainer">
+			<description><![CDATA[Create, edit and delete permission within the Products module.]]></description>
+			<privileges>
+				<document name="ShoppingListItem" permission="CRUDC" />
+			</privileges>
+		</role>
+	</roles>
+	<menu>
+
+		<list document="ShoppingListItem" name="ShoppingListItem">
+			<role name="Maintainer" />
+		</list>
+
+	</menu>
+</module>

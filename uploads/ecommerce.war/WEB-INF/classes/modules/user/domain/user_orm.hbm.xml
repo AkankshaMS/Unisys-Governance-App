@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+
+	<typedef name="OptimisticLock" class="org.skyve.impl.domain.types.OptimisticLockUserType" />
+	<typedef name="Decimal2" class="org.skyve.impl.domain.types.Decimal2UserType" />
+	<typedef name="Decimal5" class="org.skyve.impl.domain.types.Decimal5UserType" />
+	<typedef name="Decimal10" class="org.skyve.impl.domain.types.Decimal10UserType" />
+	<typedef name="DateOnly" class="org.skyve.impl.domain.types.DateOnlyUserType" />
+	<typedef name="DateTime" class="org.skyve.impl.domain.types.DateTimeUserType" />
+	<typedef name="TimeOnly" class="org.skyve.impl.domain.types.TimeOnlyUserType" />
+	<typedef name="Timestamp" class="org.skyve.impl.domain.types.TimestampUserType" />
+	<typedef name="Enum" class="org.skyve.impl.domain.types.EnumUserType" />
+	<class name="modules.user.domain.Address" table="Address" entity-name="userAddress">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="addressid" length="10" />
+		<property name="address1" length="50" />
+		<property name="address2" length="50" />
+		<property name="city" length="15" />
+		<property name="state" length="15" />
+		<property name="zipcode" length="6" />
+		<property name="country" length="15" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<filter name="userAddressNoneFilter" condition="1=0"/>
+		<filter name="userAddressCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="userAddressDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="userAddressUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.user.domain.UserAddress" table="UserAddress" entity-name="userUserAddress">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="userloginid" entity-name="userUserLogin" column="userloginid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserAddress_userloginid"/>
+		<many-to-one name="addressid" entity-name="userAddress" column="addressid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_UserAddress_addressid"/>
+		<property name="sequenceno" length="2" />
+		<property name="addresstype" length="20" />
+		<filter name="userUserAddressNoneFilter" condition="1=0"/>
+		<filter name="userUserAddressCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="userUserAddressDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="userUserAddressUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.user.domain.UserLogin" table="UserLogin" entity-name="userUserLogin">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="userloginid" length="20" />
+		<property name="emailid" length="40" />
+		<property name="mobileno" length="10" />
+		<property name="firstname" length="20" />
+		<property name="lastname" length="20" />
+		<property name="password" length="20" />
+		<property name="isenabled" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<filter name="userUserLoginNoneFilter" condition="1=0"/>
+		<filter name="userUserLoginCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="userUserLoginDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="userUserLoginUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<filter-def name="userAddressNoneFilter" />
+	<filter-def name="userAddressCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="userAddressDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="userAddressUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserAddressNoneFilter" />
+	<filter-def name="userUserAddressCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserAddressDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserAddressUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserLoginNoneFilter" />
+	<filter-def name="userUserLoginCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserLoginDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="userUserLoginUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+</hibernate-mapping>

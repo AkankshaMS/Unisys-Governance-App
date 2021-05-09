@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ShoppingList" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+                                <persistent name="ShoppingList"/>
+    
+    <singularAlias>ShoppingList</singularAlias>
+    <pluralAlias>shoppinglists</pluralAlias>
+<bizKey expression="{listid}" />
+	<attributes>
+		<text name="listid" required="true">
+			<displayName>List Id</displayName>
+			<length>10</length>
+		</text>
+		
+		<association type="aggregation" name="userlogin"
+			required="true">
+			<displayName>User Login</displayName>
+			<documentName>UserLogin</documentName>
+		</association>
+		
+		<text name="type" required="true">
+			<displayName>Type</displayName>
+			<length>20</length>
+		</text>
+	</attributes></document>

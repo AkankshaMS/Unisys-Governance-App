@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Settings" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<form border="true" percentageWidth="30" responsiveWidth="12">
+		<column percentageWidth="1" responsiveWidth="4" />
+		<column />
+		<row >
+			<item help="Enable or disable Wishlist">
+					<checkBox binding="wishlist" triState="false"></checkBox>
+			</item>
+		</row>
+		
+<!-- 				<row > -->
+<!-- 			<item> -->
+<!-- 				<default binding="product"></default> -->
+<!-- 			</item> -->
+<!-- 		</row> -->
+		<row>
+			<item>
+			<spacer></spacer>
+			
+			</item>
+			
+		</row>
+		 		
+		<row>
+			<item>
+				<spacer pixelWidth="1"/>
+			</item>
+			
+<!-- 			<item>	 -->
+<!-- 				<button action="SaveSettings" pixelWidth="140" /> -->
+<!-- 			</item> -->
+		</row>
+		<row>
+			<item>
+				<spacer />
+			</item>
+<!-- 			<item> -->
+<!-- 				<label value="assas"></label> -->
+<!-- 			</item> -->
+<!-- 			<item> -->
+<!-- 			<blurb pixelHeight="50" pixelWidth="50"> -->
+<!-- 				<![CDATA[ -->
+<!-- 					<span style="color:blue">Hi</span> -->
+<!-- 				]]> -->
+<!-- 			</blurb> -->
+			
+<!-- 			</item> -->
+<!-- 			<item> -->
+<!-- 				<label binding="response" /> -->
+<!-- 			</item> -->
+		</row>
+	</form>
+    <actions>
+    	<save/>
+    	 <ok/>
+    	
+		    </actions>
+    <newParameters/>
+</view>
