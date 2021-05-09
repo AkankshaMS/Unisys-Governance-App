@@ -66,18 +66,25 @@
 
 
     <!--Performance metrics -->
-    <!-- <button class="btn btn-primary" onclick="syncperformance()">Sync Performance<i class="fa fa-sync"></i></button> -->
 
     <div class="container-fluid p-0">
         <h4 class="ui horizontal divider header">
             <i class="bar chart icon"></i>
             Application metrics
         </h4>
+        <!-- <button class="btn btn-primary" onclick="syncperformance()" style="font-size: 18px;"> Sync Performance <i class="sync alternate icon"></i></button> -->
+        
+        <div class="row options" style="padding: 10px 10px;margin: 10px 0px;">
+            <div class="col d-flex justify-content-center">
+                <button class="ui labeled icon button primary " onclick="syncperformance('{{project.project_name}}')" style="font-size: 18px;"><i class="sync alternate icon"></i>Refresh</button>
+
+            </div>
+
+        </div>
 
         <div class="row">
             <div class="col">
-                <table class="ui definition table">
-
+                <table class="ui definition table" style="padding-bottom:20px">
 
                     <tbody id="card-body-container">
                 
@@ -166,6 +173,13 @@
 
     </div>
 
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col d-flex justify-content-center">
+            <img src="http://localhost:8080/{{project.project_name}}/monitoring?graph=usedMemory&width=960&height=400&period=jour" id="used-memory-graph" alt="">
+
+        </div>
+    </div>
 
 </div>
 

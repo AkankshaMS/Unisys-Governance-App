@@ -1,15 +1,7 @@
 function syncperformance(projectname) {
-    // var dat = {
-    // project:project,
 
-    // };
     var uName = 'setup';
     var password = 'setup';
-    // setTimeout(function(){
-    //     $(check).prop("checked",)
-    //     console.log("Happend")
-    // },2000)
-    //console.log($(e>'input[type=checkbox]:checked').length)
 
     $.ajax({
 
@@ -31,6 +23,9 @@ function syncperformance(projectname) {
 
             var cpu_load_deg = Math.round(180 * (parseInt(stat['systemCpuLoad']))/100)
             $("#cpu-load-needle").css("transform", "rotate("+cpu_load_deg+"deg)")
+            
+            //$("#cpu-load-needle").animate({transform: "rotate("+cpu_load_deg+"deg)"},1000)
+            
             $("#cpu-load-gauge").text(Math.round(stat['systemCpuLoad']))
             
             var memory_usage = Math.round((memory_information['usedMemory']/ memory_information['maxMemory'])*100)
@@ -48,7 +43,7 @@ function syncperformance(projectname) {
             
             
             // $("#card-body-container:last-child").remove()
-            $('#card-body-container').append('\
+            $('#card-body-container').html('\
                 <tr>\
             <td class="two wide column">Host</td>\
             <td>'+ stat['host'] + '</td>\
@@ -85,10 +80,19 @@ function syncperformance(projectname) {
             <td>threadCount</td>\
             <td>'+ stat['threadCount'] + '</td>\
           </tr>\
+          <tr>\
+            <td>usedBufferedMemory</td>\
+            <td>'+ memory_information['usedBufferedMemory'] + '</td>\
+          </tr>\
+          <tr>\
+          </tr>\
           '
             );
         }
     });
+
+
+
 
 
 }

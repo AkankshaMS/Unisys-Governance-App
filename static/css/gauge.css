@@ -52,6 +52,7 @@
     position: absolute;
     bottom: -2px;
     left: 20px;
+    transition: transform 0.5s;
     transform-origin: 100% 4px;
     transform: rotate(0deg);
     box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.38);
@@ -141,6 +142,8 @@
       left: 0;
       top: 0;
       box-sizing : border-box;
+      transition: transform 0.5s 0.2s;
+
       transform: rotate( calc( 1deg * ( -45 + var(--percentage) * 1.8 ) ) );
       animation : fillAnimation 1s ease-in;
     }
