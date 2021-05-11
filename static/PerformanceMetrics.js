@@ -45,7 +45,7 @@ function syncperformance(projectname) {
             // $("#card-body-container:last-child").remove()
             $('#card-body-container').html('\
                 <tr>\
-            <td class="two wide column">Host</td>\
+            <td class="five wide column">Host</td>\
             <td>'+ stat['host'] + '</td>\
           </tr>\
           <tr>\
@@ -57,31 +57,31 @@ function syncperformance(projectname) {
             <td>'+ stat['availableProcessors'] + '</td>\
           </tr>\
             <tr>\
-            <td>javaVersion</td>\
+            <td>Java Version</td>\
             <td>'+ stat['javaVersion'] + '</td>\
           </tr>\
           <tr>\
-            <td>processCpuTimeMillis</td>\
+            <td>Process CpuTime </td>\
             <td>'+ stat['processCpuTimeMillis'] + '</td>\
           </tr>\
           <tr>\
-            <td>systemLoadAverage</td>\
+            <td>System Load Average</td>\
             <td>'+ stat['systemLoadAverage'] + '</td>\
           </tr>\
           <tr>\
-            <td>systemCpuLoad</td>\
+            <td>System Cpu Load</td>\
             <td>'+ stat['systemCpuLoad'] + '</td>\
           </tr>\
           <tr>\
-            <td>startDate</td>\
+            <td>Start Date</td>\
             <td>'+ stat['startDate'] + '</td>\
           </tr>\
           <tr>\
-            <td>threadCount</td>\
+            <td>Thread Count</td>\
             <td>'+ stat['threadCount'] + '</td>\
           </tr>\
           <tr>\
-            <td>usedBufferedMemory</td>\
+            <td>Used Buffered Memory</td>\
             <td>'+ memory_information['usedBufferedMemory'] + '</td>\
           </tr>\
           <tr>\
@@ -90,9 +90,30 @@ function syncperformance(projectname) {
             );
         }
     });
+}
+var period_now = 'jour'
+
+function getChangedPeriodUrl(graph,period){
+  var str = $(graph).attr("src");
+  stripped = str.substring(0, str.indexOf('period='));
+  // console.log(stripped)
+  stripped = stripped+ 'period='+period
+  return stripped
+}
+function syncGraphs(projectname,period){
+  period_now = period
+  $(".graphs").children()
+  .each(function () {
 
 
+    $(this).attr("src",getChangedPeriodUrl(this,period))
+    $(".graph>img").attr("src",getChangedPeriodUrl($(".graph>img"),period))
+});
+  //str = 'http://localhost:8080/{{project.project_name}}/monitoring?graph=httpSessions&width=150&height=35&period=jour'
 
+}
 
+function changeGraph(projectname,graph){
 
+  $(".graph>img").attr("src",'http://localhost:8080/'+projectname+'/monitoring?graph='+graph+'&width=750&height=500&period='+period_now)
 }
