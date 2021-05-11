@@ -14,7 +14,7 @@ def start_server():
         #subprocess.Popen(["bash",f"{wildpath}/standalone.sh"])
         #subprocess.check_output(["bash",f"{wildpath}/standalone.sh"])
         print()
-        #os.system(f"bash {wildpath}/standalone.sh")
+        os.system(f"bash {wildpath}/standalone.sh")
         #webbrowser.open(url)
     else:    
         #webbrowser.register('chrome', None,webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
@@ -85,9 +85,9 @@ def TurnOn(project,can_restart=True):
         restart_server()   
 
 def TurnOff(project_name):
-    project_name=project+'.war'
-    project_json=project+'.json'
-    project_ds=project+'-ds.xml'
+    project_name=project_name+'.war'
+    project_json=project_name+'.json'
+    project_ds=project_name+'-ds.xml'
     d_path=paths['WILDFLY_DEPLOYMENTS']
     # del_path="C:/Users/Dell/wildfly-20.0.0.Final/standalone/deployments/"+project_name
     del_path=paths['WILDFLY_DEPLOYMENTS']+project_name
