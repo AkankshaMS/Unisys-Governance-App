@@ -236,9 +236,9 @@ if __name__ == "__main__":
 
     from wildserver import * 
     #start_all_projects()
-    wild_thread = Thread(target=start_wildfly_server,daemon=True)
+    wild_thread = Thread(target=start_server,daemon=True)
     wild_thread.start()
 
-    #time.sleep(10)    
+    #time.sleep(3)    
     socketio.run(app)
     # app.run(debug=True)

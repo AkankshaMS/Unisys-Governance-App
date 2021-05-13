@@ -16,7 +16,7 @@ function syncperformance(projectname) {
             console.log(data)
             //console.log(data['list'][13])
             //console.log(data[0])
-
+//git update-index --assume-unchanged paths.json
             var stat = data['list'][13]
             var memory_information = stat['memoryInformations']
             console.log(stat)

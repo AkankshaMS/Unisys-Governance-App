@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Shipping" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+    <persistent name="TRA_Shipping"/>
+    <singularAlias>Shipping</singularAlias>
+    <pluralAlias>Shippings</pluralAlias>
+    <bizKey expression="Shipping"/>
+    <attributes>
+    
+   <!-- Foriegnkey -->
+    <association type="aggregation" name="orderid">
+    <displayName>Order Id</displayName>
+    <documentName>OrderHeader</documentName>
+    </association>
+    <boolean name="checked">
+    <displayName>Approved</displayName>
+    </boolean>
+    </attributes>
+    
+    
+    
+           <conditions>
+    <condition name="created">
+	<description>Created</description>
+	<expression>
+		<![CDATA[isPersisted()]]>
+	</expression>
+</condition>
+</conditions>
+</document>

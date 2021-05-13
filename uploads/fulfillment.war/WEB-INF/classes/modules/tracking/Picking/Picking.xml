@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Picking" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+    <persistent name="TRA_Picking"/>
+    <singularAlias>Picking</singularAlias>
+    <pluralAlias>Pickings</pluralAlias>
+    <bizKey expression="Picking"/>
+    <attributes>
+    
+   <!-- Forignkey -->
+    <association type="aggregation" name="orderid">
+    <displayName>Order Id</displayName>
+    <documentName>OrderHeader</documentName>
+    </association>
+    <boolean name="checked">
+    <displayName>Approved</displayName>
+    </boolean>
+    </attributes>
+       <conditions>
+    <condition name="created">
+	<description>Created</description>
+	<expression>
+		<![CDATA[isPersisted()]]>
+	</expression>
+</condition>
+</conditions>
+</document>

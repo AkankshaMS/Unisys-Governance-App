@@ -1,3 +1,9 @@
 {
+    "JAVA_HOME": "/usr/lib/jvm/java-1.11.0-openjdk-amd64",
+    "JBOSS_HOME": "/home/ram/wildfly-22.0.0.Final/",
+    "WILDFLY_BIN":"/home/ram/wildfly-22.0.0.Final/bin/",
+    "UPLOADS_FOLDER":"/home/ram/eclipse-workspace/Unisys-Governance-App/uploads/",
+    "WILDFLY_DEPLOYMENTS":"/home/ram/wildfly-22.0.0.Final/standalone/deployments/"
     
 }
+

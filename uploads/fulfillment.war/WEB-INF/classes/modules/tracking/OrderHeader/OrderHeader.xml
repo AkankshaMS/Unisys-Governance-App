@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="OrderHeader" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="TODO_OrderHeader"/>
+    <singularAlias>OrderHeader</singularAlias>
+    <pluralAlias>OrderHeaders</pluralAlias>
+    <bizKey expression="{orderid}"/>
+    <attributes>
+    
+<!--     <id name="selectedTimesheetId" persistent="false" trackChanges="false"> -->
+<!-- 	<displayName>Selected Timesheet</displayName> -->
+<!-- </id> -->
+		    
+<!--     	<text name="description" required="true"> -->
+<!--    		 <displayName>Description</displayName> -->
+<!--    		 <length>200</length> -->
+<!--    	 </text> -->
+   	 
+   	 <text name="orderid" required="true">
+   		 <displayName>Order Id</displayName>
+   		 <length>10</length>
+   	 </text>
+   	 
+   	 <text name="userloginid"
+   		 required="true">
+   		 <displayName>User Login Id</displayName>
+   		    		 <length>10</length>
+
+   	 </text>
+
+   	 <integer name="subtotal" required="true">
+   		 <displayName>Sub Total</displayName>
+   	 </integer>
+   	 <integer name="grandtotal" required="true">
+   		 <displayName>Grand Total</displayName>
+   	 </integer>
+
+    	<text name="addressid" required="true">
+   		 <displayName>Address Id</displayName>
+   		 <length>10</length>
+   	 </text>
+
+   	 <text name="paymentmethod" required="true">
+   		 <displayName>Payment Method</displayName>
+   		 <length>20</length>
+   	 </text>
+   	 <text name="orderstatus" required="true">
+   		 <displayName>Order Status</displayName>
+   		 <length>20</length>
+   	 </text>
+   	 <dateTime name="orderdate">
+   		 <displayName>Order Date </displayName>
+   	 </dateTime>
+
+
+   	 <dateTime name="createdstamp">
+   		 <displayName>Created timestamp </displayName>
+   	 </dateTime>
+
+   	 <dateTime name="updatedstamp">
+   		 <displayName>Updated timestamp </displayName>
+   	 </dateTime>
+
+	<collection type="aggregation" name="orders">
+		<displayName>OrderItem</displayName>
+		<documentName>OrderItem</documentName>
+		<minCardinality>0</minCardinality>
+	</collection>
+
+    </attributes>
+    
+   <conditions>
+    <condition name="created">
+	<description>Created</description>
+	<expression>
+		<![CDATA[isPersisted()]]>
+	</expression>
+</condition>
+</conditions>
+    
+</document>

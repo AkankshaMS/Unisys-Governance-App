@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="OrderItem" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="TODO_ToDo"/>
+    <singularAlias>ToDo</singularAlias>
+    <pluralAlias>ToDos</pluralAlias>
+    <bizKey expression="{orderitemid}"/>
+    <attributes>
+    
+		
+    
+    
+    
+    	<text name="orderitemid" required="true">
+   		 <displayName>Order Item Id</displayName>
+   		 <length>10</length>
+   	 </text>
+   	 <!-- Foreign key -->
+<!--    	 <association type="aggregation" name="orderid" -->
+<!--    		 required="true"> -->
+<!--    		 <displayName>Order Id</displayName> -->
+<!--    		 <documentName>OrderHeader</documentName> -->
+<!--    	 </association> -->
+
+    	<text name="productid" required="true">
+   		 <displayName>Product Id</displayName>
+   		<length>5</length>
+   	 </text>
+   	 <integer name="quantity" required="true">
+   		 <displayName>Quantity</displayName>
+   	 </integer>
+   	 <integer name="unitprice" required="true">
+   		 <displayName>Unit Price</displayName>
+   	 </integer>
+
+
+   	 <dateTime name="createdstamp">
+   		 <displayName>Created timestamp </displayName>
+   	 </dateTime>
+
+   	 <dateTime name="updatedstamp">
+   		 <displayName>Updated timestamp </displayName>
+   	 </dateTime>
+
+
+    </attributes>
+</document>

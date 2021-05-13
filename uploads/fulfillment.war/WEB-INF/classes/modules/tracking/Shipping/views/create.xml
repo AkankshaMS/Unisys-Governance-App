@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="create" title="Picking" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+
+	
+	<listGrid query="qShippingInComplete"  title="Shipping"      continueConversation="false" showAdd="false" enableRemove="false"  showExport="false"  enableEdit="false" />
+	<listGrid query="qShippingComplete" title="Completed Shippings" continueConversation="false" enableEdit="false" enableRemove="false"  showExport="false" showAdd="false" />
+	
+
+    	<actions>
+<!-- 		<action className="GetOrders" displayName="GetOrders" inActionPanel="true"/> -->
+	</actions>
+	<newParameters/>
+</view>

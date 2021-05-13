@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="create" title="OrderHeader" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<!-- 	<tabPane> -->
+<!-- 	<tab title="Orders"> -->
+	
+	
+	<listGrid query="qOrderHeaderIncomplete"  title="Orders"      continueConversation="false" showAdd="false" enableRemove="false"  showExport="false"  enableEdit="false" />
+<!-- 	<dataGrid></dataGrid> -->
+	<listGrid query="qOrderHeaderComplete" title="Completed Orders" continueConversation="false" enableEdit="false" enableRemove="false"  showExport="false" showAdd="false" />
+	
+<!-- 	</tab> -->
+<!-- 	<tab title="OrderItems"> -->
+<!-- 	<listGrid query="qOrderItem" title="OrderItems" continueConversation="false" />  -->
+	
+<!-- 	</tab> -->
+<!-- </tabPane> -->
+
+
+<!-- enabled="jobScheduler"  -->
+    	<actions>
+		<action className="GetOrders" displayName="GetOrders" inActionPanel="true"/>
+	</actions>
+	<newParameters/>
+</view>

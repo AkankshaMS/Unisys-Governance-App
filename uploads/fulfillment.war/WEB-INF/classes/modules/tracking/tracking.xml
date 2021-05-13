@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="tracking"
+	prototype="true" name="tracking"
+	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+	<homeRef>create</homeRef>
+	<homeDocument>OrderHeader</homeDocument>
+	<documents>
+		<document ref="OrderHeader" />
+		<document ref="OrderItem" />
+		<document ref="Packing" />
+		<document ref="Picking" />
+		<document ref="Shipping" />
+	</documents>
+	<roles>
+		<role name="Maintainer">
+			<description><![CDATA[Create, edit and delete permission within the tracking module.]]></description>
+			<privileges>
+				<document name="OrderHeader" permission="CRUDC">
+					<action name="GetOrders" />
+					<action name="SubmitOrder" />
+
+				</document>
+				<document name="OrderItem" permission="CRUDC" />
+				<document name="Picking" permission="CRUDC" >
+									<action name="SubmitPicking" />
+				
+				
+				</document>
+				<document name="Packing" permission="CRUDC" >
+					<action name="SubmitPacking" />
+				</document>
+				<document name="Shipping" permission="CRUDC" >
+					<action name="SubmitShipping" />
+				</document>
+			</privileges>
+		</role>
+	</roles>
+	<menu>
+		<edit document="OrderHeader" name="Orders">
+
+			<role name="Maintainer" />
+		</edit>
+
+		<!-- <list document="OrderItem" name="OrderItem"> -->
+		<!-- <role name="Maintainer"/> -->
+		<!-- </list> -->
+
+
+		<edit document="Picking" name="Picking">
+			<role name="Maintainer" />
+		</edit>
+		<edit document="Packing" name="Packing">
+			<role name="Maintainer" />
+		</edit>
+		<edit document="Shipping" name="Shipping">
+			<role name="Maintainer" />
+		</edit>
+	</menu>
+
+	<queries>
+		<query documentName="OrderHeader" name="qOrderHeader">
+			<description><![CDATA[All OrderHeaders]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="userloginid" />
+				<column binding="subtotal" />
+				<column binding="grandtotal" />
+				<column binding="addressid" />
+				<column binding="paymentmethod" />
+				<column binding="orderstatus">
+					<filterOperator>notEqual</filterOperator>
+					<filterExpression>shipped</filterExpression>
+				</column>
+				<column binding="orderdate" hidden="true" />
+				<column binding="createdstamp" hidden="true" />
+				<column binding="updatedstamp" hidden="true" />
+			</columns>
+		</query>
+
+
+
+		<query documentName="OrderHeader" name="qOrderHeaderComplete">
+			<description><![CDATA[All OrderHeaders]]></description>
+
+			<from>
+				<![CDATA[
+					{tracking.OrderHeader} as bean]]>
+			</from>
+
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="userloginid" />
+				<column binding="subtotal" />
+				<column binding="grandtotal" />
+				<column binding="addressid" />
+				<column binding="paymentmethod" />
+				<column binding="orderstatus">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>shipped</filterExpression>
+
+				</column>
+				<column binding="orderdate" hidden="true" />
+				<column binding="createdstamp" hidden="true" />
+				<column binding="updatedstamp" hidden="true" />
+			</columns>
+		</query>
+
+
+
+
+
+
+
+
+
+
+		<query documentName="OrderHeader" name="qOrderHeaderIncomplete">
+			<description><![CDATA[All OrderHeaders]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="userloginid" />
+				<column binding="subtotal" />
+				<column binding="grandtotal" />
+				<column binding="addressid" />
+				<column binding="paymentmethod" />
+				<column binding="orderstatus">
+					<filterOperator>notEqual</filterOperator>
+					<filterExpression>shipped</filterExpression>
+				</column>
+				<column binding="orderdate" hidden="true" />
+				<column binding="createdstamp" hidden="true" />
+				<column binding="updatedstamp" hidden="true" />
+			</columns>
+		</query>
+
+
+
+
+
+		<query documentName="Picking" name="qPickingInComplete">
+			<description><![CDATA[All Pickings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>false</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+		<query documentName="Picking" name="qPickingComplete">
+			<description><![CDATA[All Pickings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>true</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+
+
+
+
+
+
+
+
+
+
+		<query documentName="Packing" name="qPackingInComplete">
+			<description><![CDATA[All Packings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>false</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+		<query documentName="Packing" name="qPackingComplete">
+			<description><![CDATA[All Packings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>true</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+
+
+
+
+
+
+
+		<query documentName="Shipping" name="qShippingInComplete">
+			<description><![CDATA[All Shippings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>false</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+		<query documentName="Shipping" name="qShippingComplete">
+			<description><![CDATA[All Shippings]]></description>
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="orderid.userloginid" />
+				<column binding="orderid.subtotal" />
+				<column binding="orderid.grandtotal" />
+				<column binding="orderid.addressid" />
+				<column binding="orderid.paymentmethod" />
+				<column binding="orderid.orderstatus" />
+				<column binding="orderid.orderdate" hidden="true" />
+<!-- 				<column binding="orderid.createdstamp" hidden="true" /> -->
+<!-- 				<column binding="orderid.updatedstamp" hidden="true" /> -->
+				<column binding="checked" sortOrder="ascending">
+					<filterOperator>equal</filterOperator>
+					<filterExpression>true</filterExpression>
+				</column>
+			</columns>
+		</query>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<query documentName="OrderHeader" name="qOrderItemByOrderId">
+			<description><![CDATA[All karmas]]></description>
+
+			<columns>
+				<column binding="orderid" sortOrder="ascending" />
+				<column binding="userloginid" />
+				<column binding="orders.orderitemid" />
+
+				<column binding="orderstatus" />
+				<column binding="orderdate" hidden="true" />
+			</columns>
+		</query>
+
+
+		<query documentName="OrderItem" name="qOrderItem">
+			<description><![CDATA[All ToDos]]></description>
+			<columns>
+				<column binding="orderitemid" sortOrder="ascending" />
+				<column binding="productid" />
+				<column binding="quantity" />
+				<column binding="unitprice" />
+				<column binding="createdstamp" />
+				<column binding="updatedstamp" />
+			</columns>
+		</query>
+
+
+
+
+
+
+	</queries>
+</module>

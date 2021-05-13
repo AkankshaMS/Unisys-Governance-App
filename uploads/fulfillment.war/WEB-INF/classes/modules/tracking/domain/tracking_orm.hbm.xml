@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+
+	<typedef name="OptimisticLock" class="org.skyve.impl.domain.types.OptimisticLockUserType" />
+	<typedef name="Decimal2" class="org.skyve.impl.domain.types.Decimal2UserType" />
+	<typedef name="Decimal5" class="org.skyve.impl.domain.types.Decimal5UserType" />
+	<typedef name="Decimal10" class="org.skyve.impl.domain.types.Decimal10UserType" />
+	<typedef name="DateOnly" class="org.skyve.impl.domain.types.DateOnlyUserType" />
+	<typedef name="DateTime" class="org.skyve.impl.domain.types.DateTimeUserType" />
+	<typedef name="TimeOnly" class="org.skyve.impl.domain.types.TimeOnlyUserType" />
+	<typedef name="Timestamp" class="org.skyve.impl.domain.types.TimestampUserType" />
+	<typedef name="Enum" class="org.skyve.impl.domain.types.EnumUserType" />
+	<class name="modules.tracking.domain.OrderHeader" table="TODO_OrderHeader" entity-name="trackingOrderHeader">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="orderid" length="10" />
+		<property name="userloginid" length="10" />
+		<property name="subtotal" />
+		<property name="grandtotal" />
+		<property name="addressid" length="10" />
+		<property name="paymentmethod" length="20" />
+		<property name="orderstatus" length="20" />
+		<property name="orderdate" type="DateTime" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<bag name="orders" table="TODO_OrderHeader_orders" cascade="persist,save-update,refresh,merge">
+			<key column="owner_id" foreign-key="FK_TODO_OrderHeader_orders_owner_id" />
+			<many-to-many entity-name="trackingOrderItem" foreign-key="FK_TODO_OrderHeader_orders_element_id" column="element_id" />
+		</bag>
+		<filter name="trackingOrderHeaderNoneFilter" condition="1=0"/>
+		<filter name="trackingOrderHeaderCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="trackingOrderHeaderDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="trackingOrderHeaderUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.tracking.domain.OrderItem" table="TODO_ToDo" entity-name="trackingOrderItem">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<property name="orderitemid" length="10" />
+		<property name="productid" length="5" />
+		<property name="quantity" />
+		<property name="unitprice" />
+		<property name="createdstamp" type="DateTime" />
+		<property name="updatedstamp" type="DateTime" />
+		<filter name="trackingOrderItemNoneFilter" condition="1=0"/>
+		<filter name="trackingOrderItemCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="trackingOrderItemDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="trackingOrderItemUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.tracking.domain.Packing" table="TRA_Packing" entity-name="trackingPacking">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="orderid" entity-name="trackingOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_TRA_Packing_orderid"/>
+		<property name="checked" />
+		<filter name="trackingPackingNoneFilter" condition="1=0"/>
+		<filter name="trackingPackingCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="trackingPackingDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="trackingPackingUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.tracking.domain.Picking" table="TRA_Picking" entity-name="trackingPicking">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="orderid" entity-name="trackingOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_TRA_Picking_orderid"/>
+		<property name="checked" />
+		<filter name="trackingPickingNoneFilter" condition="1=0"/>
+		<filter name="trackingPickingCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="trackingPickingDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="trackingPickingUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<class name="modules.tracking.domain.Shipping" table="TRA_Shipping" entity-name="trackingShipping">
+		<id name="bizId" length="36" />
+		<version name="bizVersion" unsaved-value="null" />
+		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
+		<property name="bizKey" length="1024" not-null="true" />
+		<property name="bizCustomer" length="50" not-null="true" />
+		<property name="bizFlagComment" length="1024" />
+		<property name="bizDataGroupId" length="36" />
+		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="orderid" entity-name="trackingOrderHeader" column="orderid_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_TRA_Shipping_orderid"/>
+		<property name="checked" />
+		<filter name="trackingShippingNoneFilter" condition="1=0"/>
+		<filter name="trackingShippingCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="trackingShippingDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="trackingShippingUserIdFilter" condition="bizUserId=:userIdParam"/>
+	</class>
+
+	<filter-def name="trackingOrderHeaderNoneFilter" />
+	<filter-def name="trackingOrderHeaderCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingOrderHeaderDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingOrderHeaderUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingOrderItemNoneFilter" />
+	<filter-def name="trackingOrderItemCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingOrderItemDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingOrderItemUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPackingNoneFilter" />
+	<filter-def name="trackingPackingCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPackingDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPackingUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPickingNoneFilter" />
+	<filter-def name="trackingPickingCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPickingDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingPickingUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingShippingNoneFilter" />
+	<filter-def name="trackingShippingCustomerFilter">
+		<filter-param name="customerParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingShippingDataGroupIdFilter">
+		<filter-param name="dataGroupIdParam" type="string"/>
+	</filter-def>
+	<filter-def name="trackingShippingUserIdFilter">
+		<filter-param name="userIdParam" type="string"/>
+	</filter-def>
+</hibernate-mapping>

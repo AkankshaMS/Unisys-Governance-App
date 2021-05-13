@@ -107,6 +107,13 @@
     #audit-table_paginate{
         margin-bottom: 10px;
     }
+    .apptitle
+    {
+
+        font-size: 17px;
+        font-weight: bold;
+        color: antiquewhite;
+    }
     </style>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -115,14 +122,15 @@
 </head>
 <body class="crm_body_bg">
     
-
+    <div id="alert" class="alert alert-success fixed-top myalert" role="alert" >
+    </div>
 
 <!-- main content part here -->
  
  <!-- sidebar  -->
 <nav class="sidebar dark_sidebar">
     <div class="logo d-flex justify-content-between">
-        <a class="large_logo" href="index-2.html"><img src="/static/img/logo_white.png" alt=""></a>
+        <a class="large_logo" href="index-2.html"><img src="/static/img/mini_logo.png" alt="" style="width: 25px;height: 30px;"><span class="apptitle">&nbsp;&nbsp; Governance Platform</span></a>
         <a class="small_logo" href="index-2.html"><img src="/static/img/mini_logo.png" alt=""></a>
         <div class="sidebar_close_icon d-lg-none">
             <i class="ti-close"></i>
@@ -214,8 +222,7 @@
         </div>
     </div>
     <!--/ menu  -->
- <div id="alert" class="alert alert-success myalert" role="alert" >
-  </div>
+
     <div id="content">{% block content %}{% endblock %}</div>
 </section>
 <!-- main content part end -->

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="PickingItems" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<!--     	<listGrid query="qOrderItemByOrderId" title="Orders" continueConversation="false" showAdd="false" enableRemove="false"  showExport="false"  enableEdit="false" /> -->
+			<dataGrid binding="orderid.orders" title="OrderItems" showAdd="false" showEdit="false" showRemove="false">
+				<boundColumn binding="orderitemid" title="orderitemid" />
+				<boundColumn binding="productid" title="productid" />
+				<boundColumn binding="quantity" title="quantity" />
+				<boundColumn binding="unitprice" title="unitprice" />
+			</dataGrid>    	
+
+
+    <actions>
+    <cancel></cancel>
+    <action className="SubmitPicking" displayName="SubmitPicking"></action>
+    </actions>
+    <newParameters/>
+</view>

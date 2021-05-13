@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="ToDo" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form responsiveWidth="12" percentageWidth="60" border="true">
+        <column percentageWidth="30" responsiveWidth="4"/>
+        <column/>
+        <row>
+            <item>
+            	<textField editable="false" binding="orderitemid"></textField>
+            </item>
+        </row>
+ 
+        <row>
+            <item>
+                <default binding="productid"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="quantity"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="unitprice"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="createdstamp"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="updatedstamp"/>
+            </item>
+        </row>
+    </form>
+    <actions>
+		<zoomOut></zoomOut>
+		<cancel name="Go back"></cancel>
+
+    </actions>
+    <newParameters/>
+</view>
